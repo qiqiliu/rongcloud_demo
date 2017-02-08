@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div ng-controller="filterCtrl">
+        过滤age大于：<input type="text" ng-model="myExp">
+        <hr>
+        <ul>
+            <li ng-repeat="person in people | filter:myFilter">name:{{person.name}}------age:{{person.age}}</li>
+        </ul>
+    </div>
+
+</body>
+</html>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('filterCtrl',function ($scope) {
+        $scope.people = [{
+            name:'zhangsan',
+            age:13
+        },{
+            name:'lisi',
+            age:14
+        },{
+            name:'wangwu',
+            age:15
+        }];
+        $scope.myExp=10;
+        $scope.myFilter = function (person) {
+            return person.age > $scope.myExp;
+        }
+    });
+
+</script>

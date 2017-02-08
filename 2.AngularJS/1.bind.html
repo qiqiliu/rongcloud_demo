@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="bindCtrl">
+        单项绑定 渲染非UI:{{content}}
+    </div>
+    <hr>
+    <div ng-controller="modalCtrl">
+
+        双向数据绑定 渲染UI: <br>
+        电话:<input ng-model="phoneVal" ng-pattern="/^\d+$/" name="phone" class="my-input"
+               aria-describedby="inputDescription" />
+        <p>输入的电话是:<span ng-bind="phoneVal"></span></p>
+        <button ng-click="showVal()">查看scope值</button>
+    </div>
+    <hr>
+</body>
+</html>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('bindCtrl',function ($scope) {
+        $scope.content='angularJs.'
+    });
+    angular.module('myApp').controller('modalCtrl',function ($scope) {
+        $scope.phoneVal='';
+        $scope.showVal=function () {
+            alert($scope.phoneVal?$scope.phoneVal:'空')
+        }
+    })
+</script>
