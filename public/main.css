@@ -1,0 +1,130 @@
+body {
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+    color: #495d64;
+    overflow-x: auto;
+    word-break: break-all;
+    font-size: 16px;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important
+}
+body, ul, li, h2, h3, ul, ol, li, p, dl, dt, dd {
+    margin: 0;
+    padding: 0
+}
+li {
+    list-style-type: none;
+}
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.formSignIn {
+    width: 300px;
+    height: 250px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    border: 1px solid #ccc;
+}
+.formSignIn h2 ,.userName ,.passWord {
+    padding-left: 50px;
+    padding-top: 20px;
+}
+.demoSignIn {
+    margin: 20px 0 0 50px;
+}
+.chatInfo {
+    display: none;
+    width: 500px;
+    height: 500px;
+    border: 1px solid #ccc;
+}
+.chatInfo h2 {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    background: #00a5ff;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+.recentContactList {
+    width: 150px;
+    height: 500px;
+    float: left;
+    /*border: 1px solid red;*/
+    background: #f4f8fc;
+}
+.recentContactList ul {
+    overflow: hidden;
+}
+.recentContactList li {
+    height: 70px;
+    width: 100%;
+    line-height: 70px;
+    text-align: center;
+    border-bottom: 1px solid #e1e9f1;
+    cursor: pointer;
+}
+.recentContactList li:hover {
+    background: #d8edfa;
+}
+.chatDialog {
+    width: 350px;
+    height: 500px;
+    float: left;
+}
+.chatMessages {
+    width: 100%;
+    height: 300px;
+    border-bottom: 1px solid #ccc;
+    background: #f9fbfd;
+    overflow: auto;
+}
+.chatMessages li {
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    padding: 10px 0;
+}
+.chatMessages li:nth-of-type(odd){
+    padding-left: 20px;
+    text-align: left;
+    float: left;
+}
+.chatMessages li:nth-of-type(even){
+    padding-right: 20px;
+    text-align: right;
+    float: right;
+}
+.inputMsg {
+    width: 100%;
+    height: 140px;
+}
+.inputMsg textarea {
+    width: 300px;
+    height: 159px;
+    font-size: 16px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    resize : none;
+    float: left;
+}
+.sendBtn {
+    width: 50px;
+    height: 159px;
+    color: #09f;
+    background: #fff;
+    border: none;
+    outline: none;
+    clear: both;
+    cursor: pointer;
+}

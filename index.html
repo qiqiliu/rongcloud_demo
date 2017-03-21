@@ -1,0 +1,244 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web SDK Demo</title>
+<script src="./public/jquery-3.1.1.js"></script>
+<script src="./public/vue.js"></script>
+<link rel="stylesheet" type="text/css" href="./public/main.css">
+</head>
+<body>
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<!-- <script src="../public/env-check.js"></script> -->
+<script type="text/javascript">
+    var appKey ="p5tvi9dspjzt4";
+    var userToken = {
+        "user1":"vL1CRi15TV0NCpPGsIYBevIYZo+Frd7oxwAkd8SHti2FyC03+mdvXm394Hwg9iyQgWDr9E9Mnd7Ek8760ZDElg==",
+        "user2":"QqmR9UcRXIToGNmiD+B9nCaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyXwmvct8AvAr7bVpk23skju2l758w3C85ww==",
+        "user3":"2l9uV3XbNvlyMBcbSgkt9yaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyX7kR+4RR6g3qillv4mUdt1LSrwE7qxTSEw==",
+        "user4":"iPvtayaUsczNIFRaT+z5bCaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyX1iJGyTMQG2GsqkUf84MNm8akMeboU1ROA==",
+        "user5":"eINULHoqaSpxeFn6+GAUxSaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyXw/2H9cLKh+ZL12vAOABzHujVCU3vUq2fg=="
+    };
+
+    var nowHours = new Date().getHours();
+    var nowMinutes = new Date().getMinutes();
+    var now = nowHours+":"+nowMinutes;
+
+    function showChat (){
+        $(".formSignIn").css("display","none");
+        $(".chatInfo").css("display","block");
+    }
+    function signIn (){
+        // $.ajax({
+        //     type:'post',
+        //     url:'',
+        //     data:{},
+        //     dataType:'json',
+        //     error: function(data) {
+                var userId = $("#demoUserName").val();
+                //localStorage.setItem("userId",userId);
+                var token = userToken[userId];
+                if(!token){
+                    alert("必须提供token");
+                }
+
+                /*
+                    初始化 SDK
+                */
+                RongIMClient.init(appKey);
+                /*
+                    设置监听器
+                */
+                // 连接状态监听器
+                RongIMClient.setConnectionStatusListener({
+                    onChanged: function (status) {
+                        switch (status) {
+                            //链接成功
+                            case RongIMLib.ConnectionStatus.CONNECTED:
+                                console.log('链接成功');
+                                break;
+                            //正在链接
+                            case RongIMLib.ConnectionStatus.CONNECTING:
+                                console.log('正在链接');
+                                break;
+                            //重新链接
+                            case RongIMLib.ConnectionStatus.DISCONNECTED:
+                                console.log('断开连接');
+                                break;
+                            //其他设备登录
+                            case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+                                console.log('其他设备登录');
+                                break;
+                              //网络不可用
+                            case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+                              console.log('网络不可用');
+                              break;
+                        }
+                    }
+                });
+
+                // 连接消息监听器
+               RongIMClient.setOnReceiveMessageListener({
+                    // 接收到的消息
+                    onReceived: function (message) {
+                        // 判断消息类型
+                        switch(message.messageType){
+                            case RongIMClient.MessageType.TextMessage:
+                                   // 发送的消息内容将会被打印
+                                console.log(message.content.content);
+                                break;
+                            case RongIMClient.MessageType.VoiceMessage:
+                                // 对声音进行预加载                
+                                // message.content.content 格式为 AMR 格式的 base64 码
+                                RongIMLib.RongIMVoice.preLoaded(message.content.content);
+                                break;
+                            case RongIMClient.MessageType.ImageMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.DiscussionNotificationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.LocationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.RichContentMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.DiscussionNotificationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.InformationNotificationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.ContactNotificationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.ProfileNotificationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.CommandNotificationMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.CommandMessage:
+                                // do something...
+                                break;
+                            case RongIMClient.MessageType.UnknownMessage:
+                                // do something...
+                                break;
+                            default:
+                                // 自定义消息
+                                // do something...
+                        }
+                    }
+                });
+                // 连接融云服务器。
+                RongIMClient.connect(token, {
+                    onSuccess: function(userId) {
+                        showChat();
+                        console.log("连接成功，用户为：" + userId);
+                        $(document).on("click",'.sendBtn',function(){
+                            sendTextMessage('user2');
+                        });
+                    },
+                    onTokenIncorrect: function() {
+                      console.log('token无效');
+                    },
+                    onError:function(errorCode){
+                        var info = '';
+                        switch (errorCode) {
+                            case RongIMLib.ErrorCode.TIMEOUT:
+                                info = '超时';
+                                break;
+                            case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+                                info = '未知错误';
+                                break;
+                            case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+                                info = '不可接受的协议版本';
+                                break;
+                            case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+                                info = 'appkey不正确';
+                                break;
+                            case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+                                info = '服务器不可用';
+                                break;
+                            }
+                        console.log(errorCode);
+                    }
+                });
+            // },
+            // success:function(data){
+            //     var userName = $("#demoUserName").val();
+            //     localStorage.setItem("userName",userName);
+            //     var currentUserToken = userToken[userName];
+            //     // showChat();
+            //     return currentUserToken;
+            // }
+        // });
+    }
+
+    function sendTextMessage (targetId){
+         var content = {
+            content:"hello部分字符",
+            extra:"RongCloud"
+        };
+        var msg = new RongIMLib.TextMessage(content);
+
+        var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+        RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+            onSuccess: function (message) {
+                //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+                console.log("发送消息成功");
+                console.log(message);
+            },
+            onError: function (errorCode,message) {
+                console.log('发送文字消息失败' );
+            }
+        });
+    }
+
+</script>
+
+
+<div class="container">
+    <form class="formSignIn">
+    	<h2>登录</h2>
+        <div class="userName">
+        	<p>请输入用户名:</p>
+        	<input id="demoUserName" type="text" value=""></input>
+        </div>
+        <div class="passWord">
+        	<p>请输入用户密码:</p>
+        	<input id="demoPassWord" type="password" value=""></input>
+        </div>
+        <button class="demoSignIn" type="button" onclick="signIn()">登录</button>
+    </form>
+    <div class="chatInfo">
+        <div class="recentContactList">
+            <h2>最近联系人</h2>
+            <ul>
+                <li>user2</li>
+                <li>user3</li>
+            </ul>
+        </div>
+        <div class="chatDialog">
+            <h2 class="chatPartner">用户:user2 </h2>
+            <div class="chatMessages">
+                <ul>
+                    <li>aaaa</li>
+                    <li>bbbbb</li>
+                    <li>ccccc</li>
+                    <li>eeeee</li>
+                    <li>fffff</li>
+                    <li>ddddd</li>
+                    <li>ggggg</li>
+                    <li>hhhhhh</li>
+                </ul>
+            </div>
+            <div class="inputMsg">
+                <textarea maxlength="200"></textarea >
+                <button class="sendBtn">发送</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
