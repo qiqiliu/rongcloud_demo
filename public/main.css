@@ -38,11 +38,19 @@ li {
 .demoSignIn {
     margin: 20px 0 0 50px;
 }
-.chatInfo {
+.chatPage {
     display: none;
-    width: 500px;
-    height: 500px;
+}
+.session {
+    width: 580px;
+    height: auto;
+    padding: 20px 0 50px 20px;
+}
+.chatInfo {
+    width: 580px;
+    height: 400px;
     border: 1px solid #ccc;
+    margin-left: 20px;
 }
 .chatInfo h2 {
     width: 100%;
@@ -56,8 +64,8 @@ li {
     text-align: center;
 }
 .recentContactList {
-    width: 150px;
-    height: 500px;
+    width: 180px;
+    height: 400px;
     float: left;
     /*border: 1px solid red;*/
     background: #f4f8fc;
@@ -65,52 +73,68 @@ li {
 .recentContactList ul {
     overflow: hidden;
 }
+.chooseChat {
+    background: #3680ca;
+}
 .recentContactList li {
     height: 70px;
     width: 100%;
     line-height: 70px;
     text-align: center;
+    background: #fff;
     border-bottom: 1px solid #e1e9f1;
     cursor: pointer;
 }
-.recentContactList li:hover {
-    background: #d8edfa;
+.recentContactList li.talking {
+    background-color: #d8edfa;
+}
+.recentContactList li p {
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.targetPortraitUri {
+    width: 40px;
+    height: 40px;
+    float: left;
+    padding: 15px 0 15px 15px;
+}
+.targetName {
+    font-size: 18px;
+    color: #000;
+}
+.targetLastMsg {
+    font-size: 14px;
 }
 .chatDialog {
-    width: 350px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     float: left;
+    background-image: url(../public/background.jpg);
+    background-size: 400px 400px; 
 }
 .chatMessages {
     width: 100%;
-    height: 300px;
+    height: 250px;
     border-bottom: 1px solid #ccc;
     background: #f9fbfd;
     overflow: auto;
 }
 .chatMessages li {
-    width: 200px;
-    height: 30px;
     line-height: 30px;
-    padding: 10px 0;
-}
-.chatMessages li:nth-of-type(odd){
-    padding-left: 20px;
-    text-align: left;
-    float: left;
-}
-.chatMessages li:nth-of-type(even){
-    padding-right: 20px;
-    text-align: right;
-    float: right;
+    padding: 5px 20px;
 }
 .inputMsg {
     width: 100%;
-    height: 140px;
+    height: 150px;
 }
 .inputMsg textarea {
-    width: 300px;
-    height: 159px;
+    width: 350px;
+    height: 109px;
     font-size: 16px;
     padding-left: 10px;
     border: none;
@@ -120,7 +144,7 @@ li {
 }
 .sendBtn {
     width: 50px;
-    height: 159px;
+    height: 109px;
     color: #09f;
     background: #fff;
     border: none;

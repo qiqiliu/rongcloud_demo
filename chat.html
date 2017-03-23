@@ -1,0 +1,343 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web SDK Demo</title>
+<script src="./public/jquery-3.1.1.js"></script>
+<!-- <script src="./public/vue.js"></script> -->
+<link rel="stylesheet" type="text/css" href="./public/main.css">
+</head>
+<body>
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+<!-- <script src="../public/env-check.js"></script> -->
+<script type="text/javascript">
+    var appKey ="p5tvi9dspjzt4";
+    var userInfos = {
+        "user1" : {
+            "token" : "vL1CRi15TV0NCpPGsIYBevIYZo+Frd7oxwAkd8SHti2FyC03+mdvXm394Hwg9iyQgWDr9E9Mnd7Ek8760ZDElg==",
+            "avatar" : "./public/targetPortraitUri.jpg",
+            "name" : "刘雨奇1",
+            "other props" : ""
+        },
+        "user2" : {
+            "token" : "QqmR9UcRXIToGNmiD+B9nCaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyXwmvct8AvAr7bVpk23skju2l758w3C85ww==",
+            "avatar" : "./public/targetPortraitUri.jpg",
+            "name" : "刘雨奇2",
+            "other props" : ""
+        },
+        "user3" : {
+            "token" : "2l9uV3XbNvlyMBcbSgkt9yaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyX7kR+4RR6g3qillv4mUdt1LSrwE7qxTSEw==",
+            "avatar" : "./public/targetPortraitUri.jpg",
+            "name" : "刘雨奇3",
+            "other props" : ""
+        },
+        "user4" : {
+            "token" : "iPvtayaUsczNIFRaT+z5bCaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyX1iJGyTMQG2GsqkUf84MNm8akMeboU1ROA==",
+            "avatar" : "./public/targetPortraitUri.jpg",
+            "name" : "刘雨奇4",
+            "other props" : ""
+        },
+        "user5" : {
+            "token" : "eINULHoqaSpxeFn6+GAUxSaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyXw/2H9cLKh+ZL12vAOABzHujVCU3vUq2fg==",
+            "avatar" : "./public/targetPortraitUri.jpg",
+            "name" : "刘雨奇5",
+            "other props" : ""
+        },
+        "000001" : {
+            "avatar" : "./public/group.jpg",
+            "name" : "群组(000001)",
+            "other props" : ""
+        }
+    };
+
+    var nowHours = new Date().getHours();
+    var nowMinutes = new Date().getMinutes();
+    var now = nowHours+":"+nowMinutes;
+
+    function showChat (){
+        $(".formSignIn").css("display","none");
+        $(".chatPage").css("display","block");
+    }
+    function signIn (){
+        var userId = $("#demoUserName").val();
+        var token = userInfos[userId].token;
+        if(!token){
+            alert("必须提供token");
+        }
+
+        /*
+            初始化 SDK
+        */
+        RongIMClient.init(appKey);
+        /*
+            设置监听器
+        */
+        // 连接状态监听器
+        RongIMClient.setConnectionStatusListener({
+            onChanged: function (status) {
+                switch (status) {
+                    //链接成功
+                    case RongIMLib.ConnectionStatus.CONNECTED:
+                        console.log('链接成功');
+                        break;
+                    //正在链接
+                    case RongIMLib.ConnectionStatus.CONNECTING:
+                        console.log('正在链接');
+                        break;
+                    //重新链接
+                    case RongIMLib.ConnectionStatus.DISCONNECTED:
+                        console.log('断开连接');
+                        break;
+                    //其他设备登录
+                    case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+                        console.log('其他设备登录');
+                        break;
+                      //网络不可用
+                    case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+                      console.log('网络不可用');
+                      break;
+                }
+            }
+        });
+
+        // 连接消息监听器
+       RongIMClient.setOnReceiveMessageListener({
+            // 接收到的消息
+            onReceived: function (message) {
+                // 判断消息类型
+                switch(message.messageType){
+                    case RongIMClient.MessageType.TextMessage:
+                        //console.log(message);
+                        updateChatList(message);
+                        break;
+                    case RongIMClient.MessageType.VoiceMessage:
+                        // 对声音进行预加载                
+                        // message.content.content 格式为 AMR 格式的 base64 码
+                        RongIMLib.RongIMVoice.preLoaded(message.content.content);
+                        break;
+                    case RongIMClient.MessageType.ImageMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.DiscussionNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.LocationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.RichContentMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.DiscussionNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.InformationNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.ContactNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.ProfileNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.CommandNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.CommandMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.UnknownMessage:
+                        // do something...
+                        break;
+                    default:
+                        // 自定义消息
+                        // do something...
+                }
+            }
+        });
+
+        // 连接融云服务器。
+        RongIMClient.connect(token, {
+            onSuccess: function(userId) {
+                getConversationList();  // 连接成功后获取会话列表
+                getMsgDialog();   //点击会话列表显示聊天对话框
+                console.log("连接成功，用户为：" + userId);
+            },
+            onTokenIncorrect: function() {
+              console.log('token无效');
+            },
+            onError:function(errorCode){
+                var info = '';
+                switch (errorCode) {
+                    case RongIMLib.ErrorCode.TIMEOUT:
+                        info = '超时';
+                        break;
+                    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+                        info = '未知错误';
+                        break;
+                    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+                        info = '不可接受的协议版本';
+                        break;
+                    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+                        info = 'appkey不正确';
+                        break;
+                    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+                        info = '服务器不可用';
+                        break;
+                    }
+                console.log(errorCode);
+            }
+        });
+    }
+
+    // 登录后获取会话列表
+    function getConversationList (){
+        showChat();  //隐藏登录框，显示会话界面
+        var limit = null; //获取会话的数量，不传或传null为全部
+        RongIMClient.getInstance().getConversationList({
+            onSuccess: function(list) {
+                list.sort(function(a,b){
+                    return a.sentTime > b.sentTime;
+                });
+                showChatList(list);
+                var strList = JSON.stringify(list);
+                localStorage.setItem("list",strList);  
+            },
+            onError: function(error) {
+                console.log("获取会话失败");
+            }
+        },null,limit);
+    }
+
+    function showChatList (list){   
+        for(var i = 0; i<list.length;i++){
+            $("#chatList").append("<li conversationType ="+ list[i].conversationType +">"+
+                "<img src="+ userInfos[list[i].targetId].avatar + " class='targetPortraitUri'>" +
+                "<p class='targetName' id ="+list[i].targetId + ">"+ userInfos[list[i].targetId].name +"</p>"+
+                "<p class='targetLastMsg'>"+ list[i].latestMessage.content.content +"</p>"
+                +"</li>");
+        }
+    }
+
+    // 点击会话列表显示聊天对话框   点击发送，发送消息
+    function getMsgDialog (){
+        var chatTargetId;
+        $("#chatList").on("click", "li", function(){
+            $(this).addClass("talking").siblings().removeClass("talking"); 
+            chatTargetId = $(this).children('p.targetName').attr('id');
+            conversationType = $(this).attr('conversationType'); 
+            $(".chatDialog").html(
+            '<h2 class="chatPartner">用户:'+ userInfos[chatTargetId].name + '</h2>'+
+            '<div class="chatMessages"><ul></ul>'+     
+            '</div>'+
+            '<div class="inputMsg">'+
+            '<textarea maxlength="200" id ="messageContent"></textarea>'+
+            '<button class="sendBtn">发送</button>'+
+            '</div>');
+        });
+        
+        //点击发送，发送消息
+        $(document).on("click",'.sendBtn',function(){
+            sendTextMessage(chatTargetId,conversationType);
+        });
+    }
+    // 发送文字消息
+    function sendTextMessage (targetId,conversationNum){
+        var messageContent = $("#messageContent").val();
+        var content = {
+            content: messageContent,
+            extra:"RongCloud"
+        };
+        var msg = new RongIMLib.TextMessage(content);
+
+        var conversationtype; 
+        if(conversationNum =='1' ){
+           conversationtype = RongIMLib.ConversationType.PRIVATE;   // 私聊
+        }
+        else if(conversationNum == '3'){
+            conversationtype = RongIMLib.ConversationType.GROUP;  //群组聊天
+        }
+        RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+            onSuccess: function (message) {
+                console.log("发送消息成功");
+                updateChatList(message);    //有新的聊天内容时更新会话列表
+                var index = $(".talking").index();
+                $("#chatList").prepend($("#chatList li").eq(index));
+                $("#messageContent").val(''); 
+            },
+            onError: function (errorCode,message) {
+                console.log('发送文字消息失败' );
+            }
+        });
+    }
+
+    //有新的聊天内容时更新会话列表
+    function updateChatList (message){
+        var updateUserID = message.targetId;
+        var updateContent = message.content.content;
+        // var chatHead = $(".chatPartner").text();
+        // var updateUserName = '用户:' + userInfos[updateUserID].name;
+        // if( chatHead == updateUserName){
+            $('#'+updateUserID).next().text(updateContent);
+            $(".chatMessages ul").append('<li><p>'+userInfos[message.senderUserId].name +' '+ now +'</p><p>' + message.content.content+'</p></li>');
+        // }
+    }
+
+    //发起会话(新建会话)
+    function createSession (ConversationType){
+        var isExist = false;
+        var sessionId = $("#sessionID").val();
+        var list = JSON.parse(localStorage.getItem("list"));
+        for(var i = 0; i<list.length;i++){
+            if(sessionId == list[i].targetId){
+                $("#chatList li").eq(i).trigger("click");
+                isExist = true;
+                return false; 
+            }
+        }
+        if(isExist == false){
+           $("#chatList").prepend("<li conversationType ="+ ConversationType +">"+
+            "<img src="+ userInfos[sessionId].avatar + " class='targetPortraitUri'>" +
+            "<p class='targetName' id ="+sessionId + ">"+ userInfos[sessionId].name +"</p>"+
+            "<p class='targetLastMsg'>"+' ' +"</p>"
+            +"</li>");
+            $("#chatList li").eq(0).trigger("click");
+        }
+    }
+
+</script>
+
+
+<div class="container">
+    <form class="formSignIn">
+    	<h2>登录</h2>
+        <div class="userName">
+        	<p>请输入用户名:</p>
+        	<input id="demoUserName" type="text" value=""></input>
+        </div>
+        <div class="passWord">
+        	<p>请输入用户密码:</p>
+        	<input id="demoPassWord" type="password" value=""></input>
+        </div>
+        <button class="demoSignIn" type="button" onclick="signIn()">登录</button>
+    </form>
+    <div class="chatPage">
+        <div class="session">
+            <p>填写你想要对话的用户的Id点击发起私聊会话，在对话框输入内容点击发送对方就收到你的消息了。</p>
+            <input type="text" value="" id="sessionID"></input>
+            <button class="sessionPrivate" onclick="createSession('1')">发起单聊会话</button>
+            <button class="sessionGroup" onclick="createSession('3')">发起群组会话</button>
+        </div>
+        <div class="chatInfo">
+            <div class="recentContactList">
+                <h2>最近联系人</h2>
+                <ul id="chatList">
+                </ul>
+            </div>
+            <div class="chatDialog">
+                
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
