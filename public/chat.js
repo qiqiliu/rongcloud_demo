@@ -47,20 +47,17 @@ $(document).ready(function(){
             "other props" : ""
         }
     };
-
+    var unread = 0;  //未读消息数
+    var nowMonth = new Date().getMonth();
+    var nowDate = new Date().getDate();
     var nowHours = new Date().getHours();
     var nowMinutes = new Date().getMinutes();
-    var now = nowHours+":"+nowMinutes;
+    var now =  nowMonth+"-"+nowDate+"   "+nowHours+":"+nowMinutes;  
 
     $(".demoSignIn").click(function(){
         signIn();   //点击登录
     });
-    $(".sessionPrivate").click(function(){
-        createSession('1');   //点击发起单聊
-    });
-    $(".sessionGroup").click(function(){
-        createSession('3');   //点击发起群组聊天
-    });
+
     function showChat (){
         $(".formSignIn").css("display","none");
         $(".chatPage").css("display","block");
@@ -114,7 +111,6 @@ $(document).ready(function(){
                 // 判断消息类型
                 switch(message.messageType){
                     case RongIMClient.MessageType.TextMessage:
-                        //console.log(message);
                         updateChatList(message);
                         break;
                     case RongIMClient.MessageType.VoiceMessage:
@@ -165,8 +161,8 @@ $(document).ready(function(){
         // 连接融云服务器。
         RongIMClient.connect(token, {
             onSuccess: function(userId) {
+                clickEvent();
                 getConversationLists();  // 连接成功后获取会话列表
-                getMsgDialog();   //点击会话列表显示聊天对话框
                 $(".currentUser").text("当前用户为："+ userInfos[userId].name +"("+ userId +")");
                 console.log("连接成功，用户为：" + userId);
             },
@@ -219,7 +215,7 @@ $(document).ready(function(){
             $("#chatList").append("<li conversationType ="+ list[i].conversationType +">"+
                 "<img src="+ userInfos[list[i].targetId].avatar + " class='targetPortraitUri'>" +
                 "<p class='targetName' id ="+list[i].targetId + ">"+ userInfos[list[i].targetId].name +"</p>"+
-                "<p class='targetLastMsg'>"+ list[i].latestMessage.content.content +"</p>"
+                "<p class='targetLastMsg'>"+ list[i].latestMessage.content.content +"</p><p class='unreadMsgNum'></p>"
                 +"</li>");
         }
     }
@@ -234,14 +230,17 @@ $(document).ready(function(){
 
             var chatTitle= $(".chatPartner").text();
             if(chatTitle != userInfos[chatTargetId].name){
+                unread = 0;
+                $(".unreadMsgNum").css("display","none");
                 displayDialog(chatTargetId,conversationType);  //显示聊天对话框
-            }   
+            }
         });
 
         //点击发送，发送消息
         $(document).on("click",'.sendBtn',function(){
             sendTextMessage(chatTargetId,conversationType);
         });
+
     }
 
 
@@ -257,7 +256,7 @@ $(document).ready(function(){
             '</div>');
 
         //获取历史消息
-        getHistoryMsg(chatTargetId,conversationType);
+        getHistoryMsg(chatTargetId,conversationType,0);
     }
 
 
@@ -280,7 +279,9 @@ $(document).ready(function(){
         RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
             onSuccess: function (message) {
                 console.log("发送消息成功");
-                updateChatList(message);    //有新的聊天内容时更新会话列表
+                updateChatList(message);    //发送消息成功后更新会话列表和对话框内容
+
+                // 发送成功后该会话放置在最近联系人列表的第一个
                 var index = $(".talking").index();
                 $("#chatList").prepend($("#chatList li").eq(index));
                 $("#messageContent").val(''); 
@@ -291,23 +292,26 @@ $(document).ready(function(){
         });
     }
 
-    //消息监听有新的聊天内容 / 发送消息成功 时更新会话
+    //消息监听到有新的聊天内容 / 发送消息成功 时更新会话
     function updateChatList (message){
         var updateUserID = message.targetId;
         var updateContent = message.content.content;
         var ConversationType = message.conversationType;
         $('#'+updateUserID).next().text(updateContent);  //更新 最近联系人列表里显示的最后一条消息
 
+        var sessionName = $(".chatPartner").text();   //获取当前会话的name
+        if(userInfos[updateUserID].name != sessionName){
+            $("#"+updateUserID).siblings(".unreadMsgNum").css("display","block");
+        }
 
         //更新 对话框的最新消息
         var chatHead = $(".chatPartner").text();
         var updateUserName = userInfos[updateUserID].name;      
-        if(chatHead == updateUserName){    
-            $(".chatMessages ul").append('<li><p>'+userInfos[message.senderUserId].name +' '+ now +'</p><p>' + message.content.content+'</p></li>');
-            $(".chatMessages").scrollTop($(".chatMessages")[0].scrollHeight);   //聊天对话框滚动条保持在最底部
+        if(chatHead == updateUserName){
+            showChatContent(message);  //在对话框中append聊天记录
         }
 
-        addRecentContact(updateUserID,ConversationType,updateContent);
+        addRecentContact(updateUserID,ConversationType,updateContent);   //发起新会话后 在最近联系人列表里添加联系人
     }
 
 
@@ -322,16 +326,16 @@ $(document).ready(function(){
     }
 
 
-    //发起新会话后 在发起者的最近联系人列表里添加联系人
+    //发起新会话后 在最近联系人列表里添加联系人
     function addRecentContact (sessionId,ConversationType,content=undefined){
         var isExist= false;
-        var list = getContactList();
-        
+        var list = getContactList();   //获取最近联系人列表的userId
+
         for(var i = 0; i<list.length;i++){
             if(sessionId == list[i]){
                 if (!content){
                     $("#chatList li").eq(i).trigger("click");
-                } 
+                }
                 isExist = true;
                 return false; 
             }
@@ -340,7 +344,7 @@ $(document).ready(function(){
             $("#chatList").prepend("<li conversationType ="+ ConversationType +">"+
                 "<img src="+ userInfos[sessionId].avatar + " class='targetPortraitUri'>" +
                 "<p class='targetName' id ="+sessionId + ">"+ userInfos[sessionId].name +"</p>"+
-                "<p class='targetLastMsg'>"+ content +"</p>"
+                "<p class='targetLastMsg'>"+ content +"</p><p class='unreadMsgNum'></p>"
                 +"</li>");
             if (!content){
                 content = ' ';
@@ -363,7 +367,7 @@ $(document).ready(function(){
 
 
     //获取历史消息
-    function getHistoryMsg(targetId,conversationNum){
+    function getHistoryMsg(targetId,conversationNum,timestrap){
         var conversationtype;
         if(conversationNum =='1' ){
            conversationtype = RongIMLib.ConversationType.PRIVATE;   // 私聊
@@ -371,13 +375,14 @@ $(document).ready(function(){
         else if(conversationNum == '3'){
             conversationtype = RongIMLib.ConversationType.GROUP;  //群组聊天
         }
-         RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, null, 20, {
+
+        RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, timestrap, 20, {
             onSuccess: function(list, hasMsg) {
                 for (var i = 0; i < list.length; i++) {
-                    $(".chatMessages ul").append('<li><p>'
-                        +userInfos[list[i].senderUserId].name +' '+ formatDate(new Date(list[i].sentTime)) +'</p>'+
-                        '<p>' + list[i].content.content+'</p></li>');
-                        $(".chatMessages").scrollTop($(".chatMessages")[0].scrollHeight);  
+                    showChatContent(list[i]);    //在对话框中append聊天记录
+                }
+                if(hasMsg == true){
+                    $(".chatMessages ul").prepend('<li><p class="checkMoreMsg">查看更多历史消息</p></li>')
                 }
             },
             onError: function(error) {
@@ -386,6 +391,28 @@ $(document).ready(function(){
         });
     }
 
+    //在对话框中append聊天记录
+    function showChatContent(message){
+        $(".chatMessages ul").append('<li><img class="chatAvatar" src="' + 
+            userInfos[message.senderUserId].avatar + '"><p class="chatSender">'+ 
+            userInfos[message.senderUserId].name +' '+ formatDate(new Date(message.sentTime)) +'</p>'+
+            '<p class="chatSenderInfo" >' + message.content.content+'</p></li>');
+        $(".chatMessages").scrollTop($(".chatMessages")[0].scrollHeight);    //聊天对话框滚动条保持在最底部
+    }
+
+    //连接融云服务器成功后执行的点击事件
+    function clickEvent(){
+        getMsgDialog();   //点击会话列表显示聊天对话框
+        $(".sessionPrivate").click(function(){
+            createSession('1');   //点击发起单聊
+        });
+        $(".sessionGroup").click(function(){
+            createSession('3');   //点击发起群组聊天
+        });
+        $(document).on("click", ".checkMoreMsg", function(){
+            alert("还有更多消息");   //点击查看更多历史消息
+        });
+    }
 
     //时间戳转换成时间
     function   formatDate(now)   {     
@@ -400,7 +427,7 @@ $(document).ready(function(){
 
 
     //敲击回车发送
-     document.onkeydown=function(event){
+    document.onkeydown=function(event){
         var e = event || window.event || arguments.callee.caller.arguments[0];           
          if(e && e.keyCode==13){ // enter 键
             $(".sendBtn").trigger("click");

@@ -15,6 +15,33 @@ body, ul, li, h2, h3, ul, ol, li, p, dl, dt, dd {
 li {
     list-style-type: none;
 }
+/*
+滚动条样式
+*/
+::-webkit-scrollbar {  
+  width: 14px;  
+  height: 14px;  
+}  
+::-webkit-scrollbar-track,  
+::-webkit-scrollbar-thumb {  
+  border-radius: 999px;  
+  border: 5px solid transparent;  
+}  
+  
+::-webkit-scrollbar-track {  
+  box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;  
+}  
+  
+::-webkit-scrollbar-thumb {  
+  min-height: 20px;  
+  background-clip: content-box;  
+  box-shadow: 0 0 0 5px rgba(0,0,0,.2) inset;  
+}  
+  
+::-webkit-scrollbar-corner {  
+  background: transparent;  
+}
+
 .container {
     width: 100%;
     height: 100%;
@@ -62,17 +89,23 @@ li {
     font-weight: 400;
     text-align: center;
 }
-
+.chatInfo h2.recentContactTitle {
+    position: fixed;
+    width: 180px;
+}
 .recentContactList {
     width: 180px;
     height: 400px;
     float: left;
-    /*border: 1px solid red;*/
     background: #f4f8fc;
+}
+.recentContactList .recentContactInfo {
+    width: 180px;
+    height: 359px;
+    margin-top: 40px;
     overflow: auto;
 }
 .recentContactList ul {
-    /*padding-top: 40px;*/
     overflow: hidden;
 }
 .chooseChat {
@@ -91,7 +124,7 @@ li {
     background-color: #d8edfa;
 }
 .recentContactList li p {
-    width: 100px;
+    width: 90px;
     height: 35px;
     line-height: 35px;
     float: left;
@@ -113,9 +146,21 @@ li {
 .targetLastMsg {
     font-size: 14px;
 }
+.recentContactList li .unreadMsgNum {
+    display: none;
+    width: 20px;
+    height: 20px;
+    float: right;
+    line-height: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #fff;
+    background: #ff0000;
+}
 .chatDialog {
-    width: 400px;
+    width: 398px;
     height: 400px;
+    border-left: 1px solid #ccc; 
     float: left;
     background-image: url(../public/background.jpg);
     background-size: 400px 400px; 
@@ -131,12 +176,39 @@ li {
     line-height: 30px;
     padding: 5px 20px;
 }
+
+.chatMessages li p.checkMoreMsg {
+    text-align: center;
+    cursor: pointer;
+}
+
+.chatMessages li p.checkMoreMsg:hover{
+    color: #00a5ff;
+}
+
+.chatMessages li img.chatAvatar {
+    width: 40px;
+    height: auto;
+    border-radius: 20px;
+    float: left;
+}
+
+.chatMessages li p.chatSender {
+    height: 40px;
+    line-height: 40px;
+    margin-left: 10px;
+    float: left;
+}
+.chatMessages li p.chatSenderInfo {
+    margin-left: 50px;
+    clear: both;
+}
 .inputMsg {
     width: 100%;
-    height: 150px;
+    height: auto;
 }
 .inputMsg textarea {
-    width: 338px;
+    width: 336px;
     height: 104px;
     font-size: 16px;
     padding-left: 10px;
