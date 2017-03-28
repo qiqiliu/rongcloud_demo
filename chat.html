@@ -3,14 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Web SDK Demo</title>
-<script src="./public/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="./public/chat.js"></script>
-<!-- <script src="./public/vue.js"></script> -->
+<script src="../public/js/jquery-3.1.1.js"></script>
+<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+
+<!-- 用户信息 、 appKey -->
+<script type="text/javascript" src="../public/js/main.js"></script> 
+
+<!-- 登录后，聊天的操作 -->
+<script type="text/javascript" src="../public/js/chat.js"></script>
+
+<!-- 聊天会话列表 / 未读消息 -->
+<script type="text/javascript" src="../public/js/chatlist.js"></script>
+
+<!-- 聊天会话详情 / 发送消息 -->
+<script type="text/javascript" src="../public/js/chatdialog.js"></script>
+
 <link rel="stylesheet" type="text/css" href="./public/main.css">
 </head>
 <body>
-<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
-<!-- <script src="../public/env-check.js"></script> -->
+
+<!-- 登录 、 初始化 、设置监听器 、连接融云服务器。 -->
+<script type="text/javascript" src="../public/js/signin.js"></script>
+
 <div class="container">
     <form class="formSignIn">
     	<h2>登录</h2>
