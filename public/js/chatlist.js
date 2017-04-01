@@ -25,16 +25,15 @@ function getConversationLists (){
     },null,limit);
 }
 
-function showChatList (list){   
+function showChatList (list){ 
+    chatList =[];  
     for(var i = 0; i<list.length;i++){
-        $("#chatList").append("<li conversationType ="+ list[i].conversationType +">"+
-            "<img src="+ userInfos[list[i].targetId].avatar + " class='targetPortraitUri'>" +
-            "<p class='targetName' id ="+list[i].targetId + ">"+ userInfos[list[i].targetId].name +"</p>"+
-            "<p class='targetLastMsg'>"+ list[i].latestMessage.content.content +"</p><p class='unreadMsgNum'></p>"
-            +"</li>");
+        var obj = getChatDate(list[i]);
+        chatList.push(obj);
 
         getUnreadCount(list[i].conversationType,list[i].targetId);   //登录后获取未读消息
     }
+    app.chatList = chatList;
 }
 
 //未读消息计数
@@ -68,4 +67,16 @@ function clearUnreadCount(conversationtype,targetId){
             console.log("清除未读数失败",error);
         }
     });
+}
+
+// 获取最近联系人列表的数据
+function getChatDate(message){
+    var obj={};
+    obj.conversationType = message.conversationType;
+    obj.imgSrc = userInfos[message.targetId].avatar;
+    obj.targetId = message.targetId;
+    obj.targetName = userInfos[message.targetId].name;
+    obj.latestMessage = message.latestMessage.content.content;
+
+    return obj;
 }

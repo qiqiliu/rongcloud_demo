@@ -4,19 +4,8 @@
 <meta charset="UTF-8">
 <title>Web SDK Demo</title>
 <script src="../public/js/jquery-3.1.1.js"></script>
-<script src="//cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
-
-<!-- 用户信息 、 appKey -->
-<script type="text/javascript" src="../public/js/main.js"></script> 
-
-<!-- 登录后，聊天的操作 -->
-<script type="text/javascript" src="../public/js/chat.js"></script>
-
-<!-- 聊天会话列表 / 未读消息 -->
-<script type="text/javascript" src="../public/js/chatlist.js"></script>
-
-<!-- 聊天会话详情 / 发送消息 -->
-<script type="text/javascript" src="../public/js/chatdialog.js"></script>
+<script src="../public/js/vue.js"></script>
+<script src="../public/js/RongIMLib-2.2.5.js"></script>
 
 <link rel="stylesheet" type="text/css" href="./public/main.css">
 </head>
@@ -29,11 +18,11 @@
     <form class="formSignIn">
     	<h2>登录</h2>
         <div class="userName">
-        	<p>请输入用户名:</p>
-        	<input id="demoUserName" type="text" value=""></input>
+        	<p>用户名:</p>
+        	<input id="demoUserName" type="text" onFocus="this.value=''" value="请输入您的用户名"></input>
         </div>
         <div class="passWord">
-        	<p>请输入用户密码:</p>
+        	<p>用户密码:</p>
         	<input id="demoPassWord" type="password" value=""></input>
         </div>
         <button class="demoSignIn" type="button">登录</button>
@@ -42,23 +31,65 @@
         <div class="session">
             <h2 class="currentUser"></h1>
             <p>填写你想要对话的用户的Id点击发起私聊会话，在对话框输入内容点击发送对方就收到你的消息了。</p>
+            <p>请输入user1(刘一)、user2(陈二)、user3(张三)、user4(李四)、user5(王五) 发起单聊会话。输入000001(一班群组)、000002(二班群组) 发起群组会话</p>
             <input type="text" value="" id="sessionID"></input>
             <button class="sessionPrivate">发起单聊会话</button>
             <button class="sessionGroup">发起群组会话</button>
         </div>
         <div class="chatInfo">
+            <div class="myInfo">
+                <img class="myHeadImg" src="">
+            </div>
             <div class="recentContactList">
                 <h2 class="recentContactTitle">最近联系人</h2>
                 <div class="recentContactInfo">
                     <ul id="chatList">
+                        <template v-for="value in chatList">
+                            <li :conversationType ="value.conversationType">
+                                <img class='targetPortraitUri' :src="value.imgSrc">
+                                <p class='targetName' :id ="value.targetId"> {{ value.targetName }}</p>
+                                <p class='targetLastMsg'> {{ value.latestMessage }}</p>
+                                <p class='unreadMsgNum'></p>
+                            </li>
+                        </template>
                     </ul>
                 </div>
             </div>
             <div class="chatDialog">
-                
+                <h2 class="chatPartner" v-show = "messageRes">{{ chatPartner }}</h2>
+                <div class="chatMessages" v-show = "messageRes">
+                    <ul>
+                        <li v-show="viewMore"><p class="checkMoreMsg">查看更多历史消息</p></li>
+                        <template v-for="site in historyMsg">
+                            <li>
+                                <img class="chatAvatar" :src="site.imgSrc">
+                                <p class="chatSender"> {{ site.senderUserId }} {{ site.sentTime }}</p>
+                                <p class="chatSenderInfo" > {{ site.content }} </p>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+                <div class="inputMsg" v-show = "messageRes">
+                    <textarea maxlength="200" id ="messageContent"></textarea>
+                    <button class="sendBtn">发送</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    
+</script>
+<!-- 用户信息 、 appKey -->
+<script type="text/javascript" src="../public/js/main.js"></script> 
+
+<!-- 登录后，聊天的操作 -->
+<script type="text/javascript" src="../public/js/chat.js"></script>
+
+<!-- 聊天会话列表 / 未读消息 -->
+<script type="text/javascript" src="../public/js/chatlist.js"></script>
+
+<!-- 聊天会话详情 / 发送消息 -->
+<script type="text/javascript" src="../public/js/chatdialog.js"></script>
 </body>
 </html>

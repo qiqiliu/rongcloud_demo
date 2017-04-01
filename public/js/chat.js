@@ -11,7 +11,7 @@ function clickEvent(){
         createSession('3');   //点击发起群组聊天
     });
     $(document).on("click", ".checkMoreMsg", function(){
-        alert("还有更多消息");   //点击查看更多历史消息
+        getMoreHistoryMsg();   //点击查看更多历史消息  
     });
 }
 

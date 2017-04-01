@@ -107,9 +107,11 @@ $(document).ready(function(){
         RongIMClient.connect(token, {
             onSuccess: function(userId) {
                 clickEvent();  //连接成功后的点击事件
-                getMsgDialog();   //点击会话列表显示聊天对话框
                 getConversationLists();  // 连接成功后获取会话列表
+                getMsgDialog();   //点击会话列表显示聊天对话框
+               
                 $(".currentUser").text("当前用户为："+ userInfos[userId].name +"("+ userId +")");
+                $(".myHeadImg").attr("src", userInfos[userId].avatar);
                 console.log("连接成功，用户为：" + userId);
             },
             onTokenIncorrect: function() {

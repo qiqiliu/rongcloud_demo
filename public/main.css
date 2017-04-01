@@ -4,13 +4,14 @@ body {
     overflow-x: auto;
     word-break: break-all;
     font-size: 16px;
+    background: #f0f8ff;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important
 }
 body, ul, li, h2, h3, ul, ol, li, p, dl, dt, dd {
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 li {
     list-style-type: none;
@@ -47,8 +48,8 @@ li {
     height: 100%;
 }
 .formSignIn {
-    width: 300px;
-    height: 250px;
+    width: 400px;
+    height: 320px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -56,13 +57,42 @@ li {
     margin: auto;
     position: absolute;
     border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
 }
-.formSignIn h2 ,.userName ,.passWord {
-    padding-left: 50px;
+.formSignIn h2{
+    text-align: center;
     padding-top: 20px;
 }
+.formSignIn input {
+    width: 300px;
+    height: 30px ;
+    border: 1px solid #ccc;
+    color: currentColor;
+    border-radius: 15px;
+    padding-left: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+.userName ,.passWord {
+    padding-left: 50px;
+    padding-top: 20px; 
+}
+.userName p,.passWord p {
+    color: #000;
+    font-size: 16px;
+}
 .demoSignIn {
-    margin: 20px 0 0 50px;
+    margin: 20px 0 0 100px;
+    width: 200px;
+    height: 40px;
+    border: 0px;
+    background: #2b98fc;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 18px;
+    outline: none; 
+    cursor: pointer;
 }
 .chatPage {
     display: none;
@@ -72,19 +102,42 @@ li {
     height: auto;
     padding: 20px 0 50px 20px;
 }
+.session p {
+    color: red;
+}
+.session input {
+    height: 30px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding-left: 10px;
+    outline: none;
+}
+.session button {
+    height: 34px;
+    width: 150px;
+    border: 0;
+    border-radius: 15px;
+    background: #00a5ff;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+}
 .chatInfo {
-    width: 580px;
+    width: 650px;
     height: 400px;
     border: 1px solid #ccc;
     margin-left: 20px;
+    border-radius: 10px;
 }
 .chatInfo h2 {
     width: 100%;
     height: 40px;
     margin: 0;
-    background: #00a5ff;
+    background: #fff;
     line-height: 40px;
-    color: #fff;
+    color: #000;
     font-size: 16px;
     font-weight: 400;
     text-align: center;
@@ -92,6 +145,20 @@ li {
 .chatInfo h2.recentContactTitle {
     position: fixed;
     width: 180px;
+}
+.myInfo {
+    width: 70px;
+    height: 400px;
+    float: left;
+    background: #00a5ff;
+    border-radius: 10px 0px 0px 10px;
+}
+.myHeadImg {
+    width: 40px;
+    height: 40px;
+    margin: 35px 0 0 15px;
+    border-radius: 20px;
+    background: #fff;
 }
 .recentContactList {
     width: 180px;
@@ -116,7 +183,7 @@ li {
     width: 100%;
     line-height: 70px;
     text-align: center;
-    background: #fff;
+    background: #f5f5f5;
     border-bottom: 1px solid #e1e9f1;
     cursor: pointer;
 }
@@ -163,6 +230,10 @@ li {
     float: left;
     background-image: url(../public/background.jpg);
     background-size: 400px 400px; 
+    border-radius: 0 10px 10px 0;
+}
+.chatPartner {
+    border-radius: 0 10px 0 0;
 }
 .chatMessages {
     width: 100%;
@@ -221,6 +292,7 @@ li {
     height: 109px;
     color: #09f;
     background: #fff;
+    border-radius: 0 0 10px 0px;
     border: none;
     outline: none;
     clear: both;
