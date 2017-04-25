@@ -3,15 +3,18 @@
 */
 
 var appKey ="p5tvi9dspjzt4";
+// var appKey ="cpj2xarlc6mfn";  //刘雨奇1 APP应用
 var userInfos = {
     "user1" : {
         "token" : "vL1CRi15TV0NCpPGsIYBevIYZo+Frd7oxwAkd8SHti2FyC03+mdvXm394Hwg9iyQgWDr9E9Mnd7Ek8760ZDElg==",
+        // "token" : "2NYY+/xWV45jI+P5WKrUPsPbXzJXB4bCbGrJT/lZXqkrWJ5ko8i3PtK2/RXA085hiN5swAgV8Yf1lhk5i7dpqQ==",  //刘雨奇1 APP应用 token
         "avatar" : "./public/user1.jpg",
         "name" : "刘一",
         "other props" : ""
     },
     "user2" : {
         "token" : "QqmR9UcRXIToGNmiD+B9nCaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyXwmvct8AvAr7bVpk23skju2l758w3C85ww==",
+        // "token" : "vUwNHBD2SZk675wzv4D3e8PbXzJXB4bCbGrJT/lZXqkrWJ5ko8i3PnH/ZhxC1WYRiN5swAgV8Yd4dG0UYIADlQ==", //刘雨奇1 APP应用 token
         "avatar" : "./public/user2.jpg",
         "name" : "陈二",
         "other props" : ""
@@ -48,5 +51,11 @@ var userInfos = {
         "avatar" : "./public/group.jpg",
         "name" : "三班群组",
         "other props" : ""
+    },
+    "KEFU149214044796592" : {
+        "avatar" : "./public/user3.jpg",
+        "name" : "客服机器人",
+        "other props" : ""
     }
 };
+

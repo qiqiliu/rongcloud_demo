@@ -24,7 +24,6 @@ app.$watch('historyMsg', function () {
 // 点击会话列表显示聊天对话框   点击发送，发送消息
 function getMsgDialog (){
     var chatTargetId;
-
     $("#chatList").on("click", "li", function(){
         messageRes = true;
         app.messageRes = messageRes;
@@ -61,6 +60,7 @@ function getHistoryMsg(targetId,conversationNum,timestrap){
     historyMsg = [];
     RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, timestrap, 20, {
         onSuccess: function(list, hasMsg) {
+             // console.log(list);
             for (var i = 0; i < list.length; i++) {
                 var obj = getMsgData(list[i]);
                 historyMsg.push(obj);
@@ -118,6 +118,7 @@ function sendTextMessage (targetId,conversationNum){
     RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             console.log("发送消息成功");
+            // getConversationLists();
             updateChatList(message);    //发送消息成功后更新会话列表和对话框内容
 
             // 发送成功后该会话放置在最近联系人列表的第一个
@@ -126,6 +127,7 @@ function sendTextMessage (targetId,conversationNum){
             $("#messageContent").val(''); 
         },
         onError: function (errorCode,message) {
+            console.info(errorCode);
             console.log('发送文字消息失败' );
         }
     });
@@ -177,8 +179,9 @@ function updateChatList (message){
     var updateContent = message.content.content;
     var ConversationType = message.conversationType;
 
+    //更新 最近联系人列表里显示的最后一条消息
     $("#chatList").prepend($("#chatList li").eq($('#'+updateUserID).parent().index()));
-    $('#'+updateUserID).next().text(updateContent);  //更新 最近联系人列表里显示的最后一条消息
+    $('#'+updateUserID).next().text(updateContent);  
     addRecentContact(updateUserID,ConversationType,updateContent);  //如果最近联系人列表里没有该用户，则新添加
 
 
@@ -191,6 +194,7 @@ function updateChatList (message){
     }
     app.historyMsg = historyMsg;
 
+    //收到消息后的未读提示
     var sessionName = $(".chatPartner").text();   //获取当前会话的name
     if(userInfos[updateUserID].name != sessionName){
         $("#"+updateUserID).siblings(".unreadMsgNum").css("display","block");   //未读消息数量提示
@@ -208,6 +212,9 @@ function getConversationType (conversationNum){
     }
     else if(conversationNum == '3'){
         conversationtype = RongIMLib.ConversationType.GROUP;  //群组聊天
+    }
+     else if(conversationNum == '5'){
+        conversationtype = RongIMLib.ConversationType.CUSTOMER_SERVICE;  //群组聊天
     }
     return conversationtype;
 }

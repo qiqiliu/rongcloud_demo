@@ -3,27 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Web SDK Demo</title>
-<script src="../public/js/jquery-3.1.1.js"></script>
-<script src="../public/js/vue.js"></script>
-<script src="../public/js/RongIMLib-2.2.5.js"></script>
+<script src="./public/js/jquery-3.1.1.js"></script>
+<script src="./public/js/vue.js"></script>
+<script type="text/javascript" src="http://cdn.ronghub.com/protobuf-2.1.6.min.js"></script>
+<script src="./public/js/RongIMLib-2.2.5-25wehl3u2qhnw.js"></script>
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="https://cdn.ronghub.com/Libamr-2.2.5.min.js"></script>
+<script src="https://cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="./public/main.css">
 </head>
 <body>
-
-<!-- 登录 、 初始化 、设置监听器 、连接融云服务器。 -->
-<script type="text/javascript" src="../public/js/signin.js"></script>
+<span v-html="content"></span>
+<script type="text/javascript">
+    // alert("1111");
+</script>
+ <!-- 登录 、 初始化 、设置监听器 、连接融云服务器。 -->
+<script type="text/javascript" src="./public/js/signin.js"></script>
 
 <div class="container">
     <form class="formSignIn">
-    	<h2>登录</h2>
+        <h2>登录</h2>
         <div class="userName">
-        	<p>用户名:</p>
-        	<input id="demoUserName" type="text" onFocus="this.value=''" value="请输入您的用户名"></input>
+            <p>用户名:</p>
+            <input id="demoUserName" type="text" onFocus="this.value=''" value="请输入您的用户名"></input>
         </div>
         <div class="passWord">
-        	<p>用户密码:</p>
-        	<input id="demoPassWord" type="password" value=""></input>
+            <p>用户密码:</p>
+            <input id="demoPassWord" type="password" value=""></input>
         </div>
         <button class="demoSignIn" type="button">登录</button>
     </form>
@@ -35,6 +42,10 @@
             <input type="text" value="" id="sessionID"></input>
             <button class="sessionPrivate">发起单聊会话</button>
             <button class="sessionGroup">发起群组会话</button>
+            <button class="sessionCustermer">发起客服对话</button>
+            <button class="clearChatList">清除会话列表</button>
+
+            <button class="playVoice">播放语音消息</button>
         </div>
         <div class="chatInfo">
             <div class="myInfo">
@@ -77,19 +88,17 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    
-</script>
+
 <!-- 用户信息 、 appKey -->
-<script type="text/javascript" src="../public/js/main.js"></script> 
+<script type="text/javascript" src="./public/js/main.js"></script> 
 
 <!-- 登录后，聊天的操作 -->
-<script type="text/javascript" src="../public/js/chat.js"></script>
+<script type="text/javascript" src="./public/js/chat.js"></script>
 
 <!-- 聊天会话列表 / 未读消息 -->
-<script type="text/javascript" src="../public/js/chatlist.js"></script>
+<script type="text/javascript" src="./public/js/chatlist.js"></script>
 
 <!-- 聊天会话详情 / 发送消息 -->
-<script type="text/javascript" src="../public/js/chatdialog.js"></script>
+<script type="text/javascript" src="./public/js/chatdialog.js"></script>
 </body>
 </html>

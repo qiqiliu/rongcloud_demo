@@ -7982,8 +7982,7 @@ var RongIMLib;
             callback.onSuccess(conver);
         };
         ServerDataProvider.prototype.getConversationList = function (callback, conversationTypes, count, isHidden) {
-            if (RongIMLib.RongIMClient._memoryStore.conversationList.length == 0 || (RongIMLib.RongIMClient._memoryStore.isSyncRemoteConverList && typeof count != undefined && RongIMLib.RongIMClient._memoryStore.conversationList.length < count)) {
-                RongIMLib.RongIMClient.getInstance().getRemoteConversationList({
+             RongIMLib.RongIMClient.getInstance().getRemoteConversationList({
                     onSuccess: function (list) {
                         if (RongIMLib.MessageUtil.supportLargeStorage()) {
                             Array.forEach(RongIMLib.RongIMClient._memoryStore.conversationList, function (item) {
@@ -8000,29 +7999,6 @@ var RongIMLib;
                         callback.onSuccess([]);
                     }
                 }, conversationTypes, count, isHidden);
-            }
-            else {
-                if (conversationTypes) {
-                    var convers = [];
-                    Array.forEach(conversationTypes, function (converType) {
-                        Array.forEach(RongIMLib.RongIMClient._memoryStore.conversationList, function (item) {
-                            if (item.conversationType == converType) {
-                                convers.push(item);
-                            }
-                        });
-                    });
-                    if (count > 0) {
-                        convers.length = count;
-                    }
-                    callback.onSuccess(convers);
-                }
-                else {
-                    if (count) {
-                        RongIMLib.RongIMClient._memoryStore.conversationList.length = count;
-                    }
-                    callback.onSuccess(RongIMLib.RongIMClient._memoryStore.conversationList);
-                }
-            }
         };
         ServerDataProvider.prototype.clearConversations = function (conversationTypes, callback) {
             Array.forEach(conversationTypes, function (conversationType) {

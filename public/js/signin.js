@@ -5,7 +5,6 @@ $(document).ready(function(){
     $(".demoSignIn").click(function(){
         signIn();   //点击登录
     });
-
     function signIn (){
         var userId = $("#demoUserName").val();
         var token = userInfos[userId].token;
@@ -17,6 +16,7 @@ $(document).ready(function(){
             初始化 SDK
         */
         RongIMClient.init(appKey);
+        RongIMLib.RongIMVoice.init();
         /*
             设置监听器
         */
@@ -57,6 +57,7 @@ $(document).ready(function(){
                     case RongIMClient.MessageType.TextMessage:
                         getUnreadCount(message.conversationType,message.targetId);
                         updateChatList(message);
+
                         break;
                     case RongIMClient.MessageType.VoiceMessage:
                         // 对声音进行预加载                
