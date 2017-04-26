@@ -278,9 +278,53 @@ li {
     width: 100%;
     height: auto;
 }
+
+.inputMsg .messageForm {
+    height: 29px;
+    background: #fff;
+   /* border-bottom: 1px solid #ccc;*/
+}
+.inputMsg .messageFormEmoji {
+    width: 20px;
+    height: 20px;
+    padding-top: 3px;
+    padding-left: 20px;
+}
+.inputMsg .emojiIcon {
+    width:20px;
+    height: 20px;
+    line-height: 20px;
+    background: url(../public/icons.png) 0px -188px / 100px no-repeat;
+    cursor: pointer;
+}
+.inputMsg .emojiIcon:hover {
+    background-position: -60px -188px;
+}
+.allEmojis {
+    display: none;
+    width: 240px;
+    height: 110px;
+    overflow: auto;
+    z-index: 1;
+    top: -146px;
+    padding: 5px 18px;
+    background: #fff;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.allEmojis span>span {
+    padding: 2px;
+    vertical-align: middle;
+}
+
+.allEmojis span>span:hover {
+    background: #8c9395;
+}
+
 .inputMsg textarea {
     width: 336px;
-    height: 104px;
+    height: 74px;
     font-size: 16px;
     padding-left: 10px;
     border: none;
@@ -290,7 +334,7 @@ li {
 }
 .sendBtn {
     width: 50px;
-    height: 109px;
+    height: 79px;
     color: #09f;
     background: #fff;
     border-radius: 0 0 10px 0px;

@@ -1,5 +1,8 @@
 /*
     聊天会话列表 / 未读消息
+    1、Web SDK 开发指南：http://www.rongcloud.cn/docs/web.html
+    2、Web SDK API 示例：http://www.rongcloud.cn/docs/web_api_demo.html
+    3、Web SDK API 文件：http://www.rongcloud.cn/docs/api/js/RongIMClient.js.html
 */
 
 //隐藏登录框，显示会话界面

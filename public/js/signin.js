@@ -1,5 +1,8 @@
 /*
     登录 、 初始化 、设置监听器 、连接融云服务器。
+    1、Web SDK 开发指南：http://www.rongcloud.cn/docs/web.html
+    2、Web SDK API 示例：http://www.rongcloud.cn/docs/web_api_demo.html
+    3、Web SDK API 文件：http://www.rongcloud.cn/docs/api/js/RongIMClient.js.html
 */
 $(document).ready(function(){ 
     $(".demoSignIn").click(function(){
@@ -17,6 +20,7 @@ $(document).ready(function(){
         */
         RongIMClient.init(appKey);
         RongIMLib.RongIMVoice.init();
+        RongIMLib.RongIMEmoji.init();
         /*
             设置监听器
         */
@@ -57,7 +61,6 @@ $(document).ready(function(){
                     case RongIMClient.MessageType.TextMessage:
                         getUnreadCount(message.conversationType,message.targetId);
                         updateChatList(message);
-
                         break;
                     case RongIMClient.MessageType.VoiceMessage:
                         // 对声音进行预加载                

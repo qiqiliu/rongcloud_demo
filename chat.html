@@ -10,14 +10,13 @@
 <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
 <script src="https://cdn.ronghub.com/Libamr-2.2.5.min.js"></script>
 <script src="https://cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+<script src="https://cdn.ronghub.com/RongEmoji-2.2.5.min.js"></script> 
 
 <link rel="stylesheet" type="text/css" href="./public/main.css">
 </head>
 <body>
 <span v-html="content"></span>
-<script type="text/javascript">
-    // alert("1111");
-</script>
+
  <!-- 登录 、 初始化 、设置监听器 、连接融云服务器。 -->
 <script type="text/javascript" src="./public/js/signin.js"></script>
 
@@ -75,12 +74,19 @@
                             <li>
                                 <img class="chatAvatar" :src="site.imgSrc">
                                 <p class="chatSender"> {{ site.senderUserId }} {{ site.sentTime }}</p>
-                                <p class="chatSenderInfo" > {{ site.content }} </p>
+                                <p class="chatSenderInfo"  v-html = "site.content"></p>
                             </li>
                         </template>
                     </ul>
                 </div>
+
                 <div class="inputMsg" v-show = "messageRes">
+                    <div class="messageForm">
+                        <div class="messageFormEmoji">
+                            <div class="emojiIcon"></div>
+                            <div id="allEmoji" class="allEmojis"></div>
+                        </div>
+                    </div>
                     <textarea maxlength="200" id ="messageContent"></textarea>
                     <button class="sendBtn">发送</button>
                 </div>

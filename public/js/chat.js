@@ -18,10 +18,22 @@ function clickEvent(){
         getMoreHistoryMsg();   //点击查看更多历史消息  
     });
     $(document).on("click", ".clearChatList", function(){
-        clearChatList();   //点击查看更多历史消息  
+        clearChatList();   //点击清空会话列表
     });
     $(document).on("click", ".playVoice", function(){
-        playVoice();   //点击查看更多历史消息  
+        playVoice();   //点击播放语音消息
+    });
+    $(document).on("click", ".emojiIcon", function(){
+        blockAllEmoji();  //点击显示全部emoji表情
+
+        $(document).one("click", function(){
+            $(".allEmojis").hide();
+        });
+        event.stopPropagation();
+    });
+    $(document).on("click", "#allEmoji span>span", function(){
+        var emojiValue = $(this).attr("name");
+        inputEmoji(emojiValue);
     });
 }
 

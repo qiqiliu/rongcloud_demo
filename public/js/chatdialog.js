@@ -1,5 +1,8 @@
 /*
     聊天会话详情 / 发送消息
+    1、Web SDK 开发指南：http://www.rongcloud.cn/docs/web.html
+    2、Web SDK API 示例：http://www.rongcloud.cn/docs/web_api_demo.html
+    3、Web SDK API 文件：http://www.rongcloud.cn/docs/api/js/RongIMClient.js.html
 */
 var chatList =[];
 var dialogInfo ="";
@@ -60,7 +63,7 @@ function getHistoryMsg(targetId,conversationNum,timestrap){
     historyMsg = [];
     RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, timestrap, 20, {
         onSuccess: function(list, hasMsg) {
-             // console.log(list);
+            // console.log(list);
             for (var i = 0; i < list.length; i++) {
                 var obj = getMsgData(list[i]);
                 historyMsg.push(obj);
@@ -103,7 +106,7 @@ function getMoreHistoryMsg(){
 
 // 发送文字消息
 function sendTextMessage (targetId,conversationNum){
-    var messageContent = $("#messageContent").val();
+    var messageContent =  $("#messageContent").val();
     if(messageContent == ""){
         alert("发送消息不能为空");
         return false;
@@ -118,7 +121,6 @@ function sendTextMessage (targetId,conversationNum){
     RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
         onSuccess: function (message) {
             console.log("发送消息成功");
-            // getConversationLists();
             updateChatList(message);    //发送消息成功后更新会话列表和对话框内容
 
             // 发送成功后该会话放置在最近联系人列表的第一个
@@ -237,7 +239,24 @@ function getMsgData(message){
     obj.imgSrc = userInfos[message.senderUserId].avatar;
     obj.senderUserId = userInfos[message.senderUserId].name;
     obj.sentTime = formatDate(new Date(message.sentTime));
-    obj.content = message.content.content;
+    obj.content = RongIMLib.RongIMEmoji.symbolToHTML(message.content.content);
 
     return obj;
+}
+
+// 显示全部 emoji 表情
+function blockAllEmoji (){
+    $(".allEmojis").show();
+    var emojis = RongIMLib.RongIMEmoji.emojis;  //获取 128 个表情
+    var allemoji = document.getElementById("allEmoji"); 
+
+    for(var i=0;i<emojis.length;i++){
+        allemoji.appendChild(emojis[i]);
+    }
+}
+
+//点击表情时，将emoji表情放在输入框
+function inputEmoji (emojiValue){
+    var textInput = $("#messageContent").val()+ emojiValue;
+    $("#messageContent").val(textInput);
 }

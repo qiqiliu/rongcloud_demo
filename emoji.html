@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+<head>
+<meta charset="UTF-8">
+<title>Web SDK emojiDemo</title>
+<script src="./public/js/jquery-3.1.1.js"></script>
+</head>
+<body>
+	<h1>emoji表情库</h1>
+    <h2>128 个基础表情</h2>
+	<div id="allemoji" class="emojis" style="width: 200px;"></div>
+</body>
+
+<script src="https://cdn.ronghub.com/RongIMLib-2.2.5.js"></script>
+<script src="https://cdn.ronghub.com/RongEmoji-2.2.5.min.js"></script> 
+<script type="text/javascript">
+    /*
+        参考文档：http://www.rongcloud.cn/docs/web.html#emoji
+    */
+	var appKey = "p5tvi9dspjzt4";
+	
+	 /*
+        初始化 SDK
+    */
+    RongIMClient.init(appKey);
+    RongIMLib.RongIMEmoji.init();
+
+
+    var emojis = RongIMLib.RongIMEmoji.emojis;  //获取 128 个表情
+    var allemoji = document.getElementById("allemoji"); 
+
+    for(var i=0;i<emojis.length;i++){
+        allemoji.appendChild(emojis[i]);
+    }
+
+    var str1 = RongIMLib.RongIMEmoji.symbolToEmoji("[狞笑][露齿而笑]测试Emoji");  //名称转 Emoji(发送消息使用)
+    var str2 = RongIMLib.RongIMEmoji.emojiToSymbol("😀😁测试 Emoji");  //Emoji 转名称(会话列表显示最后一条消息使用)
+    var str3 = RongIMLib.RongIMEmoji.emojiToHTML("😂测试 Emoji");  //Emoji 转字 HTML(接收消息使用)
+    var str4 = RongIMLib.RongIMEmoji.symbolToHTML("[露齿而笑]测试 Emoji");  //名称转字 HTML
+    console.log(str4);
+
+</script>
+</html>
