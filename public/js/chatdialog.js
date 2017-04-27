@@ -63,7 +63,6 @@ function getHistoryMsg(targetId,conversationNum,timestrap){
     historyMsg = [];
     RongIMClient.getInstance().getHistoryMessages(conversationtype, targetId, timestrap, 20, {
         onSuccess: function(list, hasMsg) {
-            // console.log(list);
             for (var i = 0; i < list.length; i++) {
                 var obj = getMsgData(list[i]);
                 historyMsg.push(obj);
@@ -106,7 +105,7 @@ function getMoreHistoryMsg(){
 
 // 发送文字消息
 function sendTextMessage (targetId,conversationNum){
-    var messageContent =  $("#messageContent").val();
+    var messageContent =  RongIMLib.RongIMEmoji.symbolToEmoji($("#messageContent").val());  //发送消息时 emoji名称转成 emoji 原生表情
     if(messageContent == ""){
         alert("发送消息不能为空");
         return false;
@@ -122,7 +121,6 @@ function sendTextMessage (targetId,conversationNum){
         onSuccess: function (message) {
             console.log("发送消息成功");
             updateChatList(message);    //发送消息成功后更新会话列表和对话框内容
-
             // 发送成功后该会话放置在最近联系人列表的第一个
             var index = $(".talking").index();
             $("#chatList").prepend($("#chatList li").eq(index));
@@ -183,7 +181,7 @@ function updateChatList (message){
 
     //更新 最近联系人列表里显示的最后一条消息
     $("#chatList").prepend($("#chatList li").eq($('#'+updateUserID).parent().index()));
-    $('#'+updateUserID).next().text(updateContent);  
+    $('#'+updateUserID).next().text(RongIMLib.RongIMEmoji.emojiToSymbol(updateContent));    // 将 emoji 原生表情转换成文字 放在会话列表最后一条消息
     addRecentContact(updateUserID,ConversationType,updateContent);  //如果最近联系人列表里没有该用户，则新添加
 
 
@@ -239,7 +237,7 @@ function getMsgData(message){
     obj.imgSrc = userInfos[message.senderUserId].avatar;
     obj.senderUserId = userInfos[message.senderUserId].name;
     obj.sentTime = formatDate(new Date(message.sentTime));
-    obj.content = RongIMLib.RongIMEmoji.symbolToHTML(message.content.content);
+    obj.content = RongIMLib.RongIMEmoji.symbolToHTML(message.content.content);  //将 emoji 名称转换成 html 放在聊天对话框
 
     return obj;
 }

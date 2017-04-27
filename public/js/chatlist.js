@@ -96,7 +96,7 @@ function getChatDate(message){
     obj.imgSrc = userInfos[message.targetId].avatar;
     obj.targetId = message.targetId;
     obj.targetName = userInfos[message.targetId].name;
-    obj.latestMessage = message.latestMessage.content.content;
+    obj.latestMessage = RongIMLib.RongIMEmoji.emojiToSymbol(message.latestMessage.content.content);  //emoji 转成文字
 
     return obj;
 }
