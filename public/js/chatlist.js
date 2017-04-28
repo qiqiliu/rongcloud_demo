@@ -14,6 +14,7 @@ function showChat (){
 // 登录后获取会话列表
 function getConversationLists (){
     showChat();  //隐藏登录框，显示会话界面
+    var conversationType = null; //具体格式设置需要补充
     var limit = null; //获取会话的数量，不传或传null为全部
     RongIMClient.getInstance().getConversationList({
         onSuccess: function(list) {
@@ -25,7 +26,7 @@ function getConversationLists (){
         onError: function(error) {
             console.log("获取会话失败");
         }
-    },null,limit);
+    },conversationType,limit);
 }
 
 function showChatList (list){ 
