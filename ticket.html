@@ -203,7 +203,7 @@
 		<div class="deleteHistoryMessage questionInfo">
 			<h3 class="question">Web 端清除聊天记录</h3>
 			<ul class="answer">
-				<li>RongIMClient.getInstance().clearMessages() 方法清除本地会话中的历史消息（不能清除服务器中的历史消息记录）</li>
+				<li>（1）RongIMClient.getInstance().clearMessages() 方法清除本地会话中的历史消息（不能清除服务器中的历史消息记录）</li>
 			</ul>
 		</div>
 
@@ -230,7 +230,7 @@
 	</div>
 
 	<!-- 发送接收消息 -->
-	<div class="sendReceiveMessage">
+	<div class="sendReceiveMessage questionInfo">
 		<h2>四、发送接收消息</h2>
 
 		<div class="sendPictureMessage">
@@ -250,8 +250,31 @@
 						var msg = new RongIMLib.ImageMessage(content);
 					</pre>
 				</li>
-				<li>（5）demo:<a href="demo：https://rongcloud.github.io/websdk-demo/api-test.html">demo：https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+				<li>（5）demo：<a href="demo：https://rongcloud.github.io/websdk-demo/api-test.html">demo：https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
 				<li>（6）参考文档：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_send">http://www.rongcloud.cn/docs/web_api_demo.html#message_send</a></li>
+			</ul>
+		</div>
+
+		<div class="sendVoiceMessage questionInfo">
+			<h3 class="question">发送语音消息</h3>
+			<ul class="answer">
+				<li>（1）Web 端支持语音消息类型，但没有 发送语音消息 的方法，如果可以自行解决录音和转码问题，Web 端就可以发送语音消息</li>
+				<li>（2）转码需要转成 amr 格式的 base64 str </li>
+				<li>（3）demo：<a href="demo：https://rongcloud.github.io/websdk-demo/api-test.html">demo：https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+			</ul>
+		</div>
+
+		<div class="emojiMessage questionInfo">
+			<h3 class="question">Emoji 表情</h3>
+			<ul class="answer">
+				<li>（1）融云表情库只支持 128 个 emoji 表情</li>
+				<li>（2）emoji 表情无法显示，先确认一下表情是否在融云支持范围内 </li>
+				<li>（3）移动端支持原生 emoji 字符，Web 端不支持时使用 emoji 转 HTML 方法，转换成 HTML 用图片来呈现 </li>
+				<li>（4）Android 端页面 emoji 表情不清晰，需要自行更换高清表情图，因为涉及版权问题，emoji表情只提供代码和示例图片，正式使用请自行解决版权问题</li>
+				<li>（5）接入emoji表情报错（RongEmoji-2.2.4.min.js:1 Uncaught TypeError: Cannot read property 'emojiImage' of undefined）：在初始化 Web SDK ( RongIMClient.init(appkey) )之后再执行 初始化表情库 ( RongIMLib.RongIMEmoji.init() )操作</li>
+				<li>（6）有一端显示 emoji 表情为灰色，样式不对，确实一下是不是样式有冲突 </li>
+				<li>（7）emoji 网络素材 <a href="http://emojipedia.org/">http://emojipedia.org/ </a></li>
+				<li>（8）emoji 参考文档：<a href="http://www.rongcloud.cn/docs/web.html#emoji"> http://www.rongcloud.cn/docs/web.html#emoji </a></li>
 			</ul>
 		</div>
 	</div>
