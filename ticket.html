@@ -9,6 +9,9 @@
 		font-size: 18px;
 		list-style-type: none;
 	}
+	.ticketSummary {
+		padding-bottom: 30px;
+	}
 </style>
 <body>
 <div class="ticketSummary">
@@ -53,7 +56,7 @@
 				<li>所以：</li>
 				<li>（1）请在开发者后台确认 token 是否为永久有效。</li>
 				<li>（2）请确认一下  AppKey 和 token 是否匹配。</li>
-				<li>（3）请使用工具 ：<a href="https://rongcloud.github.io/websdk-demo/api-test.html">https://rongcloud.github.io/websdk-demo/api-test.html 来测试一下能否链接成功。</a></li>
+				<li>（3）请使用工具 ：<a href="https://rongcloud.github.io/websdk-demo/api-test.html">https://rongcloud.github.io/websdk-demo/api-test.html</a>来测试一下能否链接成功。</li>
 			</ul>
 		</div>
 
@@ -122,7 +125,7 @@
 			<ul class="answer">
 				<li>（1）Web 端默认只支持一个页面链接，属于单页面应用，单页面应用只需 init 和 connect 一次， connect 后客户端和服务器会一直保持长连接。</li>
 				<li>（2）开页面就要分别对每个页面初始化 和 connect ，会提示其他设备登录，需要多页面链接需要开通 多设备消息同步 服务。</li>
-				<li>（3）参考链接：<a href="http://www.rongcloud.cn/docs/payment.html#多设备消息同步">http://www.rongcloud.cn/docs/payment.html#多设备消息同步</a></li>
+				<li>（3）参考链接：<a href="http://www.rongcloud.cn/docs/payment.html#multi_device_message_sync">http://www.rongcloud.cn/docs/payment.html#multi_device_message_sync</a></li>
 			</ul>
 		</div>
 
@@ -208,7 +211,7 @@
 		</div>
 
 		<div class="userInformation questionInfo">
-			<h3 class="question">用户信息( 用户头像和昵称 )的获取</h3>
+			<h3 class="question">Web 端用户信息( 用户头像和昵称 )的获取</h3>
 			<ul class="answer">
 				<li>（1）用户数据 和 用户好友消息 保存在您的应用服务器上，用户信息（昵称、头像地址等）需要在自己的数据库进行获取以及维护，通过 targetId 和 userId 进行匹配,得到相应的用户信息</li>
 				<li>（2）参考 SDK 架构说明文档：<a href="http://www.rongcloud.cn/docs/quick_start.html">http://www.rongcloud.cn/docs/quick_start.html</a></li>
@@ -250,17 +253,17 @@
 						var msg = new RongIMLib.ImageMessage(content);
 					</pre>
 				</li>
-				<li>（5）demo：<a href="demo：https://rongcloud.github.io/websdk-demo/api-test.html">demo：https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+				<li>（5）demo：<a href="https://rongcloud.github.io/websdk-demo/api-test.html">https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
 				<li>（6）参考文档：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#message_send">http://www.rongcloud.cn/docs/web_api_demo.html#message_send</a></li>
 			</ul>
 		</div>
 
 		<div class="sendVoiceMessage questionInfo">
-			<h3 class="question">发送语音消息</h3>
+			<h3 class="question">Web 端语音消息</h3>
 			<ul class="answer">
 				<li>（1）Web 端支持语音消息类型，但没有 发送语音消息 的方法，如果可以自行解决录音和转码问题，Web 端就可以发送语音消息</li>
 				<li>（2）转码需要转成 amr 格式的 base64 str </li>
-				<li>（3）demo：<a href="demo：https://rongcloud.github.io/websdk-demo/api-test.html">demo：https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+				<li>（3）demo：<a href="https://rongcloud.github.io/websdk-demo/api-test.html">https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
 			</ul>
 		</div>
 
@@ -277,6 +280,124 @@
 				<li>（8）emoji 参考文档：<a href="http://www.rongcloud.cn/docs/web.html#emoji"> http://www.rongcloud.cn/docs/web.html#emoji </a></li>
 			</ul>
 		</div>
+
+		<div class="serverMessage questionInfo">
+			<h3 class="question">服务端发送消息用户接收不到</h3>
+			<ul class="answer">
+				<li>（1）需要确认发送消息是否成功（注意消息类型，可以使用融云开发者后台的功能发送）</li>
+				<li>（2）在端上消息监听里看是否能收到消息</li>
+				<li>（3）如果还是收不到消息，请提供 appKey 和 token 以及发送消息的时间等，继续排查</li>
+			</ul>
+		</div>
+
+		<div class="serverGetMessage">
+			<h3 class="question">是否可以在server端获取聊天记录</h3>
+			<ul class="answer">
+				<li>（1）可以的，需要开通 服务端实时消息路由 服务，请参考：<a href="http://www.rongcloud.cn/docs/payment.html#server_message_sync">http://www.rongcloud.cn/docs/payment.html#server_message_sync</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 聊天室问题 -->
+	<div class="chatRoom">
+		<h2>五、聊天室问题</h2>
+
+		<div class="createChatRoom questionInfo">
+			<h3 class="question">创建聊天室问题</h3>
+			<ul class="answer">
+				<li>（1）聊天室服务端自动创建 joinChatRoom 填入聊天室 Id 即可。</li>
+				<li>（2）聊天室 1 个小时后无人说话就会自动销毁</li>
+			</ul>
+		</div>
+
+		<div class="getChatRoomHistoryMes questionInfo">
+			<h3 class="question">进入聊天室拉取消息问题</h3>
+			<ul class="answer">
+				<li>（1）聊天室不支持通过 getHistoryMessage() 方法获取历史消息</li>
+				<li>（2）可以在 joinChatRoom 时拉取最近的消息，最多五十条</li>
+				<li>（3）参考文档：http://www.rongcloud.cn/docs/web_api_demo.html#chatroom </li>
+			</ul>
+		</div>
+
+		<div class="joinChatRoom questionInfo">
+			<h3 class="question">加入聊天室失败</h3>
+			<ul class="answer">
+				<li>（1）需要在init初始化以及连接融云服务器成功后，再调用加入聊天室方法</li>
+				<li>（2）demo：<a href="https://rongcloud.github.io/websdk-demo/api-test.html">https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+			</ul>
+		</div>
+
+		<div class="phoneInChatRoom questionInfo">
+			<h3 class="question">手机环境下，进入聊天室，然后手机待机一段时间，重新唤醒屏幕，消息不能发送，提示超时。</h3>
+			<ul class="answer">
+				<li>（1）手机待机后，系统会有一些节能的操作，浏览器的很多活动会被限制甚至被回收。</li>
+				<li>（2）建议在浏览器监听window.onfous时间来获取唤醒的时机，唤醒时刷新页面重新开始。</li>
+			</ul>
+		</div>
+		
+		<div class="chatRoomPeople questionInfo">
+			<h3 class="question"> 聊天室人数上限问题</h3>
+			<ul class="answer">
+				<li>（1）融云直播聊天室人数无上限</li>
+				<li>（2）参考文档：<a href="http://www.rongcloud.cn/docs/live_chatroom.html"> http://www.rongcloud.cn/docs/live_chatroom.html</a></li>
+			</ul>
+		</div>
+
+		<div class="visitorJoinChatRoom questionInfo">
+			<h3 class="question"> 游客进入融云聊天室问题</h3>
+			<ul class="answer">
+				<li>（1）融云要求用户必须根据id等获取token，并链接才能加入聊天室</li>
+				<li>（2）给游客分配一个id，获取token，链接融云，再调用方法加入聊天室</li>
+			</ul>
+		</div>
+
+		<div class="quitChatRoom questionInfo">
+			<h3 class="question">Web 端直接关闭网页，退出聊天室问题</h3>
+			<ul class="answer">
+				<li>（1）网页关闭后，用户会有 保活策略，过了保活期会自动退出</li>
+				<li>（2）在保活期内重新打开可直接恢复</li>
+				<li>（3）过了保护器重新打开需要重新加入聊天室</li>
+				<li>（4）参考文档：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#chatroom">http://www.rongcloud.cn/docs/web_api_demo.html#chatroom</a></li>
+			</ul>
+		</div>
+
+		<div class="appChatRoom questionInfo">
+			<h3 class="question">Web 端发送聊天室消息，APP 接收不到问题</h3>
+			<ul class="answer">
+				<li>（1）需要确认 APP 端和 Web 端的 appkey 的是否一致</li>
+				<li>（2）确认 Web 端用户有没有加入对应聊天室（APP端发消息的和web端加入的是否是同一个聊天室id）</li>
+				<li>（3）反过来， APP 发消息，Web 端 是否可以收到消息 </li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 参考文档 -->
+	<div class="ReferenceDocumentation">
+		<h2>参考文档</h2>
+		<div class="documentationInfo">
+			<ul class="answer">
+				<li>（1）SDK 架构：<a href="http://www.rongcloud.cn/docs/quick_start.html">http://www.rongcloud.cn/docs/quick_start.html</a></li>
+				<li>（2）Web SDK 开发指南：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a></li>
+				<li>（3）Web SDK API 示例：<a href="http://www.rongcloud.cn/docs/web_api_demo.html">http://www.rongcloud.cn/docs/web_api_demo.html</a></li>
+				<li>（4）Web SDK API 文件：<a href="http://www.rongcloud.cn/docs/api/js/RongIMClient.js.html">http://www.rongcloud.cn/docs/api/js/RongIMClient.js.html</a></li>
+				<li>（5）Server 开发指南：<a href="http://www.rongcloud.cn/docs/server.html">http://www.rongcloud.cn/docs/server.html</a></li>
+				<li>（6）聊天插件下载地址：<a href="https://github.com/rongcloud/rongcloud-web-im-widget">https://github.com/rongcloud/rongcloud-web-im-widget</a></li>
+				<li>（7）聊天插件的开发文档：<a href="https://github.com/rongcloud/rongcloud-web-im-widget/blob/master/doc/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.md">https://github.com/rongcloud/rongcloud-web-im-widget/blob/master/doc/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.md</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 参考 demo -->
+	<div class="ReferenceDemo">
+	 	<h2>参考 demo </h2>
+	 	<div class="demoInfo">
+	 		<ul class="answer">
+	 			<li>（1）demo：<a href="https://rongcloud.github.io/websdk-demo/api-test.html"> https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+	 			<li>（2）消息接收 demo: <a href="https://rongcloud.github.io/websdk-demo/connect-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a></li>
+	 			<li>（3）聊天插件在线 demo：<a href="http://web.hitalk.im/widget/web/demo/index.html">http://web.hitalk.im/widget/web/demo/index.html</a></li>
+	 			<li>（4）RequireJS 加载 SDK demo: <a href="https://rongcloud.github.io/websdk-demo/require.html">https://rongcloud.github.io/websdk-demo/require.html</a></li>
+	 		</ul>
+	 	</div>
 	</div>
 </div>
 </body>
