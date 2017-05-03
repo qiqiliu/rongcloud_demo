@@ -22,7 +22,7 @@
 			<h3 class="question">参考文档：<a href="http://www.rongcloud.cn/docs/web.html#sdk">http://www.rongcloud.cn/docs/web.html#sdk</a></h3>
 		</div>
 
-		<div class="RequireJSLoading">
+		<div class="RequireJSLoading questionInfo">
 			<h3 class="question">IE9 下 RequireJS 加载时 protobuf 文件报错 (不支持 websocket 内核的浏览器会报错)</h3>
 			<ul class="answer">
 				<li>（1）通过 script 直接引入的方式，SDK 有判断，IE9 下使用长链接，并且不引入 protobuf</li>
@@ -233,10 +233,10 @@
 	</div>
 
 	<!-- 发送接收消息 -->
-	<div class="sendReceiveMessage questionInfo">
+	<div class="sendReceiveMessage">
 		<h2>四、发送接收消息</h2>
 
-		<div class="sendPictureMessage">
+		<div class="sendPictureMessage questionInfo">
 			<h3 class="question">发送图片消息</h3>
 			<ul class="answer">
 				<li>（1）web发送图片时,要传参数content和imageUri,其中content为图片的base64缩略图，imageUri 为大图的网络路径，七牛上传完图片后可得到。</li>
@@ -290,7 +290,7 @@
 			</ul>
 		</div>
 
-		<div class="serverGetMessage">
+		<div class="serverGetMessage questionInfo">
 			<h3 class="question">是否可以在server端获取聊天记录</h3>
 			<ul class="answer">
 				<li>（1）可以的，需要开通 服务端实时消息路由 服务，请参考：<a href="http://www.rongcloud.cn/docs/payment.html#server_message_sync">http://www.rongcloud.cn/docs/payment.html#server_message_sync</a></li>
@@ -374,7 +374,7 @@
 	<!-- 参考文档 -->
 	<div class="ReferenceDocumentation">
 		<h2>参考文档</h2>
-		<div class="documentationInfo">
+		<div class="documentationInfo questionInfo">
 			<ul class="answer">
 				<li>（1）SDK 架构：<a href="http://www.rongcloud.cn/docs/quick_start.html">http://www.rongcloud.cn/docs/quick_start.html</a></li>
 				<li>（2）Web SDK 开发指南：<a href="http://www.rongcloud.cn/docs/web.html">http://www.rongcloud.cn/docs/web.html</a></li>
@@ -390,7 +390,7 @@
 	<!-- 参考 demo -->
 	<div class="ReferenceDemo">
 	 	<h2>参考 demo </h2>
-	 	<div class="demoInfo">
+	 	<div class="demoInfo questionInfo">
 	 		<ul class="answer">
 	 			<li>（1）demo：<a href="https://rongcloud.github.io/websdk-demo/api-test.html"> https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
 	 			<li>（2）消息接收 demo: <a href="https://rongcloud.github.io/websdk-demo/connect-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a></li>
