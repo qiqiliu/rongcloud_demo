@@ -5,7 +5,7 @@
 ### 引入声音库
 
 ```
-<script src="http://cdn.ronghub.com/swfobject-2.0.0.min.js"></script>
+<script src="//cdn.ronghub.com/swfobject-2.0.0.min.js"></script>
 <script src="lib/libamr-min-new.js"></script>
 <script src="./voice.js"></script>
 ```
@@ -59,19 +59,25 @@ RongIMVoice.Player.pause();
 如果需要在微信浏览器或者 IOS 的 Safari 浏览器等使用，请参考 voiceComponent.js demo
 
 ```
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="./voiceComponent.js"></script>
 ```
 
 ### 微信浏览器播放语音 demo 使用方法
 
 ```
-......
+......（ 判断是否为 微信浏览器 ）
 
 wx.ready(function () {
 
-    RongIMVoice.Player.play(voice);  //此处执行的是 播放语音消息 方法
-    
+   document.getElementById('play').addEventListener("touchstart",function(event){
+
+	    RongIMVoice.Player.play(voice); //此处执行的是 播放语音消息 方法
+
+	    window.removeEventListener('touchstart',RongIMVoice.Player.play(voice), false);
+	    event.stopPropagation(); 
+	});
+
 });
 ```
 
@@ -79,10 +85,10 @@ wx.ready(function () {
 
 ```
 /*
-    Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，如果没有得到用户的 action 就播放的话就会被 Safari 拦截
+	Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，如果没有得到用户的 action 就播放的话就会被 safri 拦截
 */
 
-......
+......（ 判断是否为 IOS 浏览器 ）
 
 document.getElementById('play').addEventListener("touchstart",function(event){
 
