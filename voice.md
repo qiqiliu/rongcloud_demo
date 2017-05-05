@@ -27,13 +27,25 @@ RongIMLib.RongIMVoice.init();
 ### 播放声音
 
 ```
-RongIMVoice.Player.play(voice);
 /* 
 	voice 为要播放的音频文件
  	onbeforeplay: 音频播放之前
  	onplayed: 音频开始播放
  	onended: 音频播放完成
  */
+
+RongIMVoice.Player.play(voice, {
+    onbeforeplay: function(){
+        console.log('onbeforeplay');
+    },
+    onplayed: function(){
+        console.log('onplayed');
+    },
+    onended: function(){
+        console.log('onended');
+    }
+});
+
 ```
 
 ### 停止播放
@@ -52,26 +64,26 @@ RongIMVoice.Player.pause();
 微信浏览器播放语音 demo 使用方法
 
 ```
-	......
+......
 
-	wx.ready(function () {
-        play();  //此处执行的是 播放语音消息 方法
-    });
+wx.ready(function () {
+    play();  //此处执行的是 播放语音消息 方法
+});
 ```
 
 IOS Safari 浏览器等 播放语音 demo 使用方法
 
 ```
-	/*
-		Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，也就是说如果没有得到用户的 action 就播放的话就会被 safri 拦截
-		将用户第一次的点击事件用 touchstart 触摸事件代替，随后在删除此触摸事件
-	*/
+/*
+	Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，也就是说如果没有得到用户的 action 就播放的话就会被 safri 拦截
+	将用户第一次的点击事件用 touchstart 触摸事件代替，随后在删除此触摸事件
+*/
 
-	......
+......
 
-	document.getElementById('play').addEventListener("touchstart",function(event){
-        play(); //此处执行的是 播放语音消息 方法
-        window.removeEventListener('touchstart',play, false);
-        event.stopPropagation(); 
-    });
+document.getElementById('play').addEventListener("touchstart",function(event){
+    play(); //此处执行的是 播放语音消息 方法
+    window.removeEventListener('touchstart',play, false);
+    event.stopPropagation(); 
+});
 ```
