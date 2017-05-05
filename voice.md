@@ -54,7 +54,7 @@ RongIMVoice.Player.play(voice, {
 RongIMVoice.Player.pause();
 ```
 
-### 微信浏览器、IOS 的 Safari 浏览器等播放语音问题解决
+## 微信浏览器、IOS 的 Safari 浏览器等播放语音问题解决
 
 如果需要在微信浏览器或者 IOS 的 Safari 浏览器等使用，请参考 weChatPlayVoice.js demo
 
@@ -63,7 +63,7 @@ RongIMVoice.Player.pause();
 <script src="./weChatPlayVoice.js"></script>
 ```
 
-微信浏览器播放语音 demo 使用方法
+### 微信浏览器播放语音 demo 使用方法
 
 ```
 ......
@@ -75,11 +75,11 @@ wx.ready(function () {
 });
 ```
 
-IOS Safari 浏览器等 播放语音 demo 使用方法
+### IOS Safari 浏览器等 播放语音 demo 使用方法
 
 ```
 /*
-    Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，如果没有得到用户的 action 就播放的话就会被 safri 拦截
+    Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，如果没有得到用户的 action 就播放的话就会被 Safari 拦截
 */
 
 ......
