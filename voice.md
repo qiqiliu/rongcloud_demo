@@ -11,7 +11,7 @@
 ```
 
 ### 定义音频文件，base64码，AMR格式
-实例中的音频消息：
+示例中的音频消息：
 
 ```
 <script src="./res/voice-amr-base64.json"></script>
@@ -21,7 +21,7 @@
 全局只需要 init 一次
 
 ```
-RongIMLib.RongIMVoice.init();
+RongIMVoice.init();
 ```
 
 ### 播放声音
@@ -77,7 +77,7 @@ IOS Safari 浏览器等 播放语音 demo 使用方法
 
 ```
 /*
-    Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，也就是说如果没有得到用户的 action 就播放的话就会被 safri 拦截
+    Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，如果没有得到用户的 action 就播放的话就会被 safri 拦截
 */
 
 ......
