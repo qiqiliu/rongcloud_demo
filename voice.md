@@ -28,7 +28,7 @@ RongIMLib.RongIMVoice.init();
 
 ```
 /* 
-	voice 为要播放的音频文件
+	voice: amr 格式的 base64 语音文件
  	onbeforeplay: 音频播放之前
  	onplayed: 音频开始播放
  	onended: 音频播放完成
@@ -77,8 +77,7 @@ IOS Safari 浏览器等 播放语音 demo 使用方法
 
 ```
 /*
-	Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，也就是说如果没有得到用户的 action 就播放的话就会被 safri 拦截
-	将用户第一次的点击事件用 touchstart 触摸事件代替，随后在删除此触摸事件
+    Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，也就是说如果没有得到用户的 action 就播放的话就会被 safri 拦截
 */
 
 ......
