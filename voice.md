@@ -54,6 +54,8 @@ RongIMVoice.Player.play(voice, {
 RongIMVoice.Player.pause();
 ```
 
+### 微信浏览器、IOS 的 Safari 浏览器等播放语音问题解决
+
 如果需要在微信浏览器或者 IOS 的 Safari 浏览器等使用，请引入
 
 ```
