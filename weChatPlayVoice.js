@@ -39,7 +39,7 @@ window.onload = function(){
     }
     var isIOSBrowserRes = isIOSBrowser();
     if(isIOSBrowserRes) {
-        //在safri on iOS 里面明确指出等待用户的交互动作后才能播放 media，也就是说如果没有得到用户的 action 就播放的话就会被safri拦截)
+        //在safri on iOS 里面明确指出等待用户的交互动作后才能播放 audio，也就是说如果没有得到用户的 action 就播放的话就会被safri拦截
         document.getElementById('play').addEventListener("touchstart",function(event){
             play(); //播放语音消息方法
             window.removeEventListener('touchstart',play, false);

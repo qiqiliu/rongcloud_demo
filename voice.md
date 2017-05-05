@@ -10,12 +10,6 @@
 <script src="./voice.js"></script>
 ```
 
-如果需要在微信浏览器或者 IOS 的 Safari 浏览器等使用，请引入
-
-```
-<script src="./weChatPlayVoice.js"></script>
-```
-
 ### 定义音频文件，base64码，AMR格式
 实例中的音频消息：
 
@@ -24,7 +18,7 @@
 ```
 
 ### 初始化声音库
-在 RongIMClient.init之后，全局只init一次
+全局只需要 init 一次
 
 ```
 RongIMLib.RongIMVoice.init();
@@ -48,25 +42,36 @@ RongIMVoice.Player.play(voice);
 RongIMVoice.Player.pause();
 ```
 
+如果需要在微信浏览器或者 IOS 的 Safari 浏览器等使用，请引入
 
+```
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="./weChatPlayVoice.js"></script>
+```
 
+微信浏览器播放语音 demo 使用方法
 
-融云 RongCloud 官网
-[http://www.rongcloud.cn](http://www.rongcloud.cn)
+```
+	......
 
-SealTalk 全平台 App 下载
-[http://www.rongcloud.cn/downloads](http://www.rongcloud.cn/downloads)
+	wx.ready(function () {
+        play();  //此处执行的是 播放语音消息 方法
+    });
+```
 
-SealTalk iOS 开源项目
-[https://github.com/sealtalk/sealtalk-ios](https://github.com/sealtalk/sealtalk-ios)
+IOS Safari 浏览器等 播放语音 demo 使用方法
 
-SealTalk Android 开源项目
-[https://github.com/sealtalk/sealtalk-android](https://github.com/sealtalk/sealtalk-android)
+```
+	/*
+		Safari 浏览器 明确指出等待用户的交互动作后才能播放 audio ，也就是说如果没有得到用户的 action 就播放的话就会被 safri 拦截
+		将用户第一次的点击事件用 touchstart 触摸事件代替，随后在删除此触摸事件
+	*/
 
-SealTalk Desktop 开源项目
-[https://github.com/sealtalk/sealtalk-desktop](https://github.com/sealtalk/sealtalk-desktop) 支持 Windows 和 Mac 平台
+	......
 
-SealTalk Web 开源项目
-[https://github.com/sealtalk/sealtalk-web](https://github.com/sealtalk/sealtalk-web)
-
-融云 RongCloud 服务端 API SDK in Node.js [https://github.com/rongcloud/server-sdk-nodejs](https://github.com/rongcloud/server-sdk-nodejs)
+	document.getElementById('play').addEventListener("touchstart",function(event){
+        play(); //此处执行的是 播放语音消息 方法
+        window.removeEventListener('touchstart',play, false);
+        event.stopPropagation(); 
+    });
+```
