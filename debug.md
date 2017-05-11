@@ -359,7 +359,7 @@ var msg = new RongIMLib.ImageMessage(content);
 （3）反过来， APP 发消息，Web 端 是否可以收到消息
 
 
-##　参考文档
+## 参考文档
 
 （1）SDK 架构：[http://www.rongcloud.cn/docs/quick_start.html](http://www.rongcloud.cn/docs/quick_start.html)
 
