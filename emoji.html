@@ -33,11 +33,14 @@
         allemoji.appendChild(emojis[i]);
     }
 
-    var str1 = RongIMLib.RongIMEmoji.symbolToEmoji("[狞笑][露齿而笑]测试Emoji");  //名称转 Emoji(发送消息使用)
+    var str1 = RongIMLib.RongIMEmoji.symbolToEmoji("[欢乐][露齿而笑]测试Emoji");  //名称转 Emoji(发送消息使用)
     var str2 = RongIMLib.RongIMEmoji.emojiToSymbol("😀😁测试 Emoji");  //Emoji 转名称(会话列表显示最后一条消息使用)
     var str3 = RongIMLib.RongIMEmoji.emojiToHTML("😂测试 Emoji");  //Emoji 转字 HTML(接收消息使用)
     var str4 = RongIMLib.RongIMEmoji.symbolToHTML("[露齿而笑]测试 Emoji");  //名称转字 HTML
-    console.log(str4);
+    console.log('名称转 Emoji:' + str1);
+    console.log('Emoji 转名称:' + str2);
+    console.log('Emoji 转字 HTML:' + str3);
+    console.log('名称转字 HTML:' + str4);
 
 </script>
 </html>
