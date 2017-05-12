@@ -5,6 +5,8 @@
 
 ### 参考文档：[http://www.rongcloud.cn/docs/web.html#sdk](http://www.rongcloud.cn/docs/web.html#sdk)
 
+### WebIM 集成引导：[https://rongcloud.github.io/websdk-demo/integrate/guide.html](https://rongcloud.github.io/websdk-demo/integrate/guide.html)
+
 ### IE9 下 RequireJS 加载时 protobuf 文件报错 (不支持 websocket 内核的浏览器会报错)
 
 （1）通过 script 直接引入的方式，SDK 有判断，IE9 下使用长链接，并且不引入 protobuf
