@@ -1743,6 +1743,11 @@ var RongWebIMWidget;
             });
             _this.RongIMSDKServer.setOnReceiveMessageListener({
                 onReceived: function (data) {
+                    var eleplaysound = document.getElementById("rongcloud-playsound");
+                    if (eleplaysound && typeof _this.widgetConfig.voiceUrl === "string") {
+                        eleplaysound["src"] = _this.widgetConfig.voiceUrl;
+                        eleplaysound.play();
+                    }
                     _this.$log.debug(data);
                     var msg = RongWebIMWidget.Message.convert(data);
                     if (RongWebIMWidget.Helper.checkType(_this.providerdata.getUserInfo) == "function" && msg.content) {

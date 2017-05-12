@@ -21,6 +21,8 @@
 	    WebIMWidget.init({
 	        appkey: "p5tvi9dspjzt4",
 	        token: "eINULHoqaSpxeFn6+GAUxSaiM+p4JJZDDIwrB3VY2pNWyvLgcCXyXw/2H9cLKh+ZL12vAOABzHujVCU3vUq2fg==",
+	        // voiceUrl: "http://a.f265.com/project/shake-money/img/shake.mp3",
+	        voiceUrl: "../webWidget/dist/images/sms-received.mp3",
 	        displayConversationList: true,
 	        style:{
 	            left:3,
@@ -39,8 +41,11 @@
 
     	WebIMWidget.setUserInfoProvider(function(targetId, obj) {
 	        obj.onSuccess({
+
+                // audio.play(); 
 	            name: "用户：" + targetId
 	        });
+	        // obj.onSuccess({name: '客服', userId: targetId , portraitUri: 'https://images.kanbingbing.com/customer_service.png'});
 	    });
 
 	    WebIMWidget.setGroupInfoProvider(function(targetId, obj){
