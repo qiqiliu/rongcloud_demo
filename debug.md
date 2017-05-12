@@ -63,6 +63,13 @@ Token无效一般有以下两种原因：
 （6）多设备消息同步 服务参考链接：[http://www.rongcloud.cn/docs/payment.html#multi_device_message_sync](http://www.rongcloud.cn/docs/payment.html#multi_device_message_sync)
 
 
+###  Web 端获取对方在线状态
+
+（1）不能通过消息来判断用户是否在线，需要通过应用服务器处理
+
+（2）用户是否在线需要用 server 端的在线状态订阅，具体可以参看用户状态相关文档：[http://www.rongcloud.cn/docs/server.html#online_status](http://www.rongcloud.cn/docs/server.html#online_status)
+
+
 ## 二、会话列表
 
 ### 获取会话列表问题
@@ -245,6 +252,24 @@ var msg = new RongIMLib.ImageMessage(content);
 
 （7）参考文档：[http://www.rongcloud.cn/docs/web_api_demo.html#message_send](http://www.rongcloud.cn/docs/web_api_demo.html#message_send)
 
+### Web 端聊天插件提示音
+
+（1）WebIMWidget.init中配置 voiceUrl 路径
+
+（2）在收到消息时，在插件中的消息监听 setOnReceiveMessageListener 方法 onReceived 中执行 play 方法
+
+### Web 端聊天插件收不到客服消息
+
+（1）消息接收 demo ：[https://rongcloud.github.io/websdk-demo/connect-check.html](https://rongcloud.github.io/websdk-demo/connect-check.html)
+
+（2）使用 demo 检测下能不能收到客服发过来的消息
+
+（3）与客服对话需要先发起握手消息
+
+（4）参考 demo ：[http://web.hitalk.im/widget/web/demo/index.html](http://web.hitalk.im/widget/web/demo/index.html)
+
+（5）参考文档：[http://www.rongcloud.cn/docs/web.html#custom_service_widget](http://www.rongcloud.cn/docs/web.html#custom_service_widget)
+
 ### Web 端语音消息
 
 （1）Web 端支持语音消息类型，但没有 发送语音消息 的方法，如果可以自行解决录音和转码问题，Web 端就可以发送语音消息
@@ -270,6 +295,14 @@ var msg = new RongIMLib.ImageMessage(content);
 （7）emoji 网络素材 [http://emojipedia.org/](http://emojipedia.org/)
 
 （8）emoji 参考文档：[http://www.rongcloud.cn/docs/web.html#emoji](http://www.rongcloud.cn/docs/web.html#emoji)
+
+### 群组管理禁言和拉入黑名单权限 
+
+（1）融云提供接口，谁有权限把谁禁言都需要自己在服务器实现
+
+（2）参考文档：[http://www.rongcloud.cn/docs/server.html#group_user_gag](http://www.rongcloud.cn/docs/server.html#group_user_gag)
+
+（3）SDK 架构说明：[http://www.rongcloud.cn/docs/quick_start.html](http://www.rongcloud.cn/docs/quick_start.html)
 
 ### 服务端发送消息用户接收不到
 
@@ -312,6 +345,14 @@ var msg = new RongIMLib.ImageMessage(content);
 
 （2）demo ：[https://rongcloud.github.io/websdk-demo/api-test.html](https://rongcloud.github.io/websdk-demo/api-test.html)
 
+### 提示 xxx 进入聊天室 / 群组的方法
+
+（1）在用户进入聊天室或者群组后自动发送一条消息，其他用户通过消息监听可以知道有用户进入
+
+（2）消息类型和内容都可以由您自己决定，可以根据实际情况设计标识，并通过标识判断是否为新用户
+
+（3）具体类型可以参考文档：[http://www.rongcloud.cn/docs/server.html#message](http://www.rongcloud.cn/docs/server.html#message)
+
 ### 手机环境下，进入聊天室，然后手机待机一段时间，重新唤醒屏幕，消息不能发送，提示超时。
 
 （1）手机待机后，系统会有一些节能的操作，浏览器的很多活动会被限制甚至被回收。
@@ -339,6 +380,8 @@ var msg = new RongIMLib.ImageMessage(content);
 （3）过了保护期重新打开需要重新加入聊天室
 
 （4）参考文档：[http://www.rongcloud.cn/docs/web_api_demo.html#chatroom](http://www.rongcloud.cn/docs/web_api_demo.html#chatroom)
+
+（5）聊天室规则：[http://www.rongcloud.cn/docs/server.html#chatroom](http://www.rongcloud.cn/docs/server.html#chatroom)
 
 ### 关闭网页，用户保活策略问题
 
