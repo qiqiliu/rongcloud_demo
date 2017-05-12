@@ -87,6 +87,14 @@
             </ul>
         </div>
 
+        <div class="getOnlineStatus questionInfo">
+            <h3 class="question"> Web 端获取对方在线状态</h3>
+            <ul class="answer">
+                <li>（1）不能通过消息来判断用户是否在线，需要通过应用服务器处理</li>
+                <li>（2）用户是否在线需要用 server 端的在线状态订阅，具体可以参看用户状态相关文档：<a href="http://www.rongcloud.cn/docs/server.html#online_status">http://www.rongcloud.cn/docs/server.html#online_status</a></li>
+            </ul>
+        </div>
+
        <!-- <div class="appKeySafety questionInfo">
             <h3 class="question"> JS 暴露应用的 appKey 的问题 </h3>
             <ul class="answer">
@@ -153,8 +161,8 @@
                 <li>（1）获取未读消息数必须在获取会话列表和收到实时消息之后，未读消息储存在 localstorage 中</li>
                 <li>（2）在获取会话列表后，每次有收到新的消息时会执行 获取未读消息( getUnreadCount() ) 方法，数量 count 会不断累加，执行清除未读消息 方法后，count 清零。</li>
                 <li>（3）清除未读消息( clearUnreadCount() ) 方法可以清除当前端的未读数，并不会多端同步，多端同步需要发送 SynReadStatusMessage ,同步给多端请参考 SendSynReadStatusMessage 。</li>
-                <li>（5）参考文档：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#conversation_unread_message">http://www.rongcloud.cn/docs/web_api_demo.html#conversation_unread_message</a></li>
                 <li>（4）demo：<a href="https://rongcloud.github.io/websdk-demo/api-test.html"> https://rongcloud.github.io/websdk-demo/api-test.html</a></li>
+                <li>（5）参考文档：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#conversation_unread_message">http://www.rongcloud.cn/docs/web_api_demo.html#conversation_unread_message</a></li>
             </ul>
         </div>
     </div>
@@ -279,6 +287,25 @@
             </ul>
         </div>
 
+        <div class="prompt questionInfo">
+            <h3 class="question">Web 端聊天插件提示音</h3>
+            <ul class="answer">
+                <li>（1）WebIMWidget.init中配置 voiceUrl 路径</li>
+                <li>（2）在收到消息时，在插件中的消息监听 setOnReceiveMessageListener 方法 onReceived 中执行 play 方法</li>
+            </ul>
+        </div>
+
+        <div class="getCustermerMessage questionInfo">
+            <h3 class="question">Web 端聊天插件收不到客服消息</h3>
+            <ul class="answer">
+                <li>（1）消息接收 demo ：<a href="https://rongcloud.github.io/websdk-demo/connect-check.html">https://rongcloud.github.io/websdk-demo/connect-check.html</a></li>
+                <li>（2）使用 demo 检测下能不能收到客服发过来的消息</li>
+                <li>（3）与客服对话需要先发起握手消息</li>
+                <li>（4）参考 demo ：<a href="http://web.hitalk.im/widget/web/demo/index.html">http://web.hitalk.im/widget/web/demo/index.html</a></li>
+                <li>（5）参考文档：<a href="http://www.rongcloud.cn/docs/web.html#custom_service_widget">http://www.rongcloud.cn/docs/web.html#custom_service_widget</a></li>
+            </ul>
+        </div>
+
         <div class="sendVoiceMessage questionInfo">
             <h3 class="question">Web 端语音消息</h3>
             <ul class="answer">
@@ -299,6 +326,15 @@
                 <li>（6）有一端显示 emoji 表情为灰色，样式不对，确实一下是不是样式有冲突 </li>
                 <li>（7）emoji 网络素材 <a href="http://emojipedia.org/">http://emojipedia.org/ </a></li>
                 <li>（8）emoji 参考文档：<a href="http://www.rongcloud.cn/docs/web.html#emoji"> http://www.rongcloud.cn/docs/web.html#emoji </a></li>
+            </ul>
+        </div>
+
+        <div class="groupPermissions questionInfo">
+            <h3 class="question">群组管理禁言和拉入黑名单权限</h3>
+            <ul class="answer">
+                <li>（1）融云提供接口，谁有权限把谁禁言都需要自己在服务器实现</li>
+                <li>（2）参考文档：<a href="http://www.rongcloud.cn/docs/server.html#group_user_gag">http://www.rongcloud.cn/docs/server.html#group_user_gag</a></li>
+                <li>（3）SDK 架构说明：<a href="http://www.rongcloud.cn/docs/quick_start.html">http://www.rongcloud.cn/docs/quick_start.html</a></li>
             </ul>
         </div>
 
@@ -356,6 +392,15 @@
             </ul>
         </div>
 
+        <div class="MessagePrompt questionInfo">
+            <h3 class="question"> 提示 xxx 进入聊天室 / 群组的方法</h3>
+            <ul class="answer">
+                <li>（1）在用户进入聊天室或者群组后自动发送一条消息，其他用户通过消息监听可以知道有用户进入</li>
+                <li>（2）消息类型和内容都可以由您自己决定，可以根据实际情况设计标识，并通过标识判断是否为新用户</li>
+                <li>（3）具体类型可以参考文档：<a href="http://www.rongcloud.cn/docs/server.html#message">http://www.rongcloud.cn/docs/server.html#message</a></li>
+            </ul>
+        </div>
+
         <div class="phoneInChatRoom questionInfo">
             <h3 class="question">手机环境下，进入聊天室，然后手机待机一段时间，重新唤醒屏幕，消息不能发送，提示超时。</h3>
             <ul class="answer">
@@ -387,6 +432,7 @@
                 <li>（2）在保活期内重新打开可直接恢复</li>
                 <li>（3）过了保护期重新打开需要重新加入聊天室</li>
                 <li>（4）参考文档：<a href="http://www.rongcloud.cn/docs/web_api_demo.html#chatroom">http://www.rongcloud.cn/docs/web_api_demo.html#chatroom</a></li>
+                <li>（5）聊天室规则：<a href="http://www.rongcloud.cn/docs/server.html#chatroom">http://www.rongcloud.cn/docs/server.html#chatroom</a></li>
             </ul>
         </div>
 
